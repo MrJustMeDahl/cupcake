@@ -1,55 +1,70 @@
 package dat.backend.model.entities;
 
-import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Order {
+    private int id;
+    private int userId;
+    private List<Integer> productIds;
 
-    private int orderID;
-    private List<Cupcake> cupcakes;
-    private float totalPrice;
-    private boolean ordered;
-    private boolean paid;
-    private Timestamp timestamp;
-
-    public Order(int orderID, List<Cupcake> cupcakes, float totalPrice, boolean ordered, boolean paid, Timestamp timestamp){
-        this.orderID = orderID;
-        this.cupcakes = cupcakes;
-        this.totalPrice = totalPrice;
-        this.ordered = ordered;
-        this.paid = paid;
-        this.timestamp = timestamp;
+    public Order(int id, int userId, List<Integer> productIds) {
+        this.id = id;
+        this.userId = userId;
+        this.productIds = productIds;
     }
 
-    public int getOrderID() {
-        return orderID;
+    public int getId() {
+        return id;
     }
 
-    public List<Cupcake> getCupcakes() {
-        return cupcakes;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public float getTotalPrice() {
-        return totalPrice;
+    public int getUserId() {
+        return userId;
     }
 
-    public boolean getOrdered() {
-        return ordered;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setOrdered(boolean newOrdered){
-        this.ordered = newOrdered;
+    public List<Integer> getProductIds() {
+        return productIds;
     }
 
-    public boolean getPaid() {
-        return paid;
+    public void setProductIds(List<Integer> productIds) {
+        this.productIds = productIds;
     }
 
-    public void setPaid(boolean newPaid){
-        this.paid = newPaid;
+    public void addProductId(int productId) {
+        if (productIds == null) {
+            productIds = new ArrayList<>();
+        }
+        productIds.add(productId);
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id && userId == order.userId && Objects.equals(productIds, order.productIds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, productIds);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", productIds=" + productIds +
+                '}';
     }
 }
