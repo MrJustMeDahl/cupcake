@@ -10,15 +10,16 @@ public class User
     private String name;
     private float balance = 0;
 
-    public User(String username, String password, String role, String name)
+    public User(String email, String password, String role, String name, float balance)
     {
-        this.email = username;
+        this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
+        this.balance = balance;
     }
 
-    public String getUsername()
+    public String getEmail()
     {
         return email;
     }
@@ -54,14 +55,14 @@ public class User
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) &&
+        return getEmail().equals(user.getEmail()) && getPassword().equals(user.getPassword()) &&
                 getRole().equals(user.getRole());
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(getUsername(), getPassword(), getRole());
+        return Objects.hash(getEmail(), getPassword(), getRole());
     }
 
     @Override

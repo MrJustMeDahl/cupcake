@@ -28,7 +28,8 @@ class UserMapper
                 {
                     String role = rs.getString("role");
                     String name = rs.getString("name");
-                    user = new User(email, password, role, name);
+                    float balance = Float.parseFloat(rs.getString("balance"));
+                    user = new User(email, password, role, name, balance);
                 } else
                 {
                     throw new DatabaseException("Wrong email or password");
@@ -41,7 +42,7 @@ class UserMapper
         return user;
     }
 
-    static User createUser(String email, String password, String role,String name, ConnectionPool connectionPool) throws DatabaseException
+    static User createUser(String email, String password, String role,String name, float balance, ConnectionPool connectionPool) throws DatabaseException
     {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
@@ -58,7 +59,7 @@ class UserMapper
                 int rowsAffected = ps.executeUpdate();
                 if (rowsAffected == 1)
                 {
-                    user = new User(email, password, role, name);
+                    user = new User(email, password, role, name, balance);
                 } else
                 {
                     throw new DatabaseException("The user with email = " + email + " could not be inserted into the database");
