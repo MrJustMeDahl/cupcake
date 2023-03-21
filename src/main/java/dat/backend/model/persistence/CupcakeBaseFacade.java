@@ -18,12 +18,12 @@ public class CupcakeBaseFacade {
         CupcakeBaseMapper.addFlavor(flavor, price, connectionPool);
     }
 
-    public static void editBase (int cupcakebase_id, String name, float price, ConnectionPool connectionPool){
-        CupcakeBaseMapper.editBase(cupcakebase_id, name, price, connectionPool);
+    public static void editBase (int cupcakebaseId, String name, float price, ConnectionPool connectionPool){
+        CupcakeBaseMapper.editBase(cupcakebaseId, name, price, connectionPool);
     }
 
-    public static void deleteBase (int cupcakebase_id, ConnectionPool connectionPool){
-        CupcakeBaseMapper.deleteBase(cupcakebase_id, connectionPool);
+    public static void deleteBase (int cupcakebaseId, ConnectionPool connectionPool){
+        CupcakeBaseMapper.deleteBase(cupcakebaseId, connectionPool);
     }
 
 }
