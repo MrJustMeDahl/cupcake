@@ -12,17 +12,19 @@ class Cupcake{
 }
 
 class CupcakeTopping{
+- int cupcaketoppingeId
 - String flavor
 - float price
-+ CupcakeTopping(String flavor, float price)
++ CupcakeTopping(int cupcaketoppingeId, String flavor, float price)
 + float getPrice()
 + String getFlavor()
 }
 
 class CupcakeBase{
+- int cupcakebaseId
 - String flavor
 - float price
-+ CupcakeBase(String flavor, float price)
++ CupcakeBase(int cupcakebaseId, String flavor, float price)
 + float getPrice()
 + String getFlavor()
 }
