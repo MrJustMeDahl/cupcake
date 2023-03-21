@@ -5,16 +5,17 @@ import java.util.Objects;
 public class User
 {
     private String email;
-    private String name;
     private String password;
     private String role;
-    private float balance;
+    private String name;
+    private float balance = 0;
 
-    public User(String username, String password, String role)
+    public User(String username, String password, String role, String name)
     {
         this.email = username;
         this.password = password;
         this.role = role;
+        this.name = name;
     }
 
     public String getUsername()
