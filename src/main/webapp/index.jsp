@@ -5,25 +5,21 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the frontpage
+
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-        Welcome to the frontpage
+
     </jsp:attribute>
 
     <jsp:body>
 
-        <p>Startcode for 2nd semester </p>
+        <p>Vi går op i smag, detaljer og finish! </p>
+        <img src="${pageContext.request.contextPath}/images/cupcakesFigmaBillede1.jpg" width="300px;" class="img-fluid"/>
 
-        <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
-        </c:if>
+        <p>Kombinér din egen cupcake blandt vores mange muligheder af bunde og toppings!</p>
+        <img src="${pageContext.request.contextPath}/images/cupcakemaking.jpg" width="300px;" class="img-fluid"/>
 
-        <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="login.jsp">Login</a></p>
-        </c:if>
 
     </jsp:body>
 
