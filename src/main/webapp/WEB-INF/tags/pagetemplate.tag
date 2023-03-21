@@ -18,12 +18,14 @@
 </head>
 <body>
 <header>
+    <img src="${pageContext.request.contextPath}/images/cupcakeheader.png" width="70%;" class="mx-auto d-block"/>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="index.jsp">
-                <img src="${pageContext.request.contextPath}/images/cphbusiness.png" width="400px;" class="img-fluid"/>
+                <img src="${pageContext.request.contextPath}/images/Olskerbagerilogo.png" width="25%" class="img-fluid"/>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            <h1 class="col text-center">Olsker Bageri</h1>
+            <button class="navbar-toggler float-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -54,16 +56,16 @@
     <hr/>
     <div class="row mt-4">
         <div class="col">
-            Nørgaardsvej 30<br/>
-            2800 Lyngby
+            Olsker, Lindegårdsvej 1<br/>
+            3770 Allinge
         </div>
         <div class="col">
             <jsp:invoke fragment="footer"/><br/>
-            <p>&copy; 2022 Cphbusiness</p>
+            <p><a href="aboutus">Om os</a></p>
         </div>
         <div class="col">
             Datamatikeruddannelsen<br/>
-            2. semester efterår 2022
+            2. semester forår 2023
         </div>
     </div>
 
