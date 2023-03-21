@@ -1,0 +1,124 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Cupcake{
+- CupcakeTopping topping
+- CupcakeBase base
+- float fullPrice
++ Cupcake(CupcakeTopping topping, CupcakeBase base)
++ float getFullPrice()
++ CupcakeTopping getCupcakeTopping()
++ CupcakeBase getCupcakeBase()
+}
+
+class CupcakeTopping{
+- String flavor
+- float price
++ CupcakeTopping(String flavor, float price)
++ float getPrice()
++ String getFlavor()
+}
+
+class CupcakeBase{
+- String flavor
+- float price
++ CupcakeBase(String flavor, float price)
++ float getPrice()
++ String getFlavor()
+}
+
+class User{
+- int userID
+- String name
+- String eMail
+- Role role
+- float balance
++ User(int userID, String name, String eMail, Role role, float balance)
++ int getUserID()
++ String getName()
++ String getEMail()
++ Role getRole()
++ float getBalance()
++ boolean setBalance()
+}
+
+class ShoppingBasket{
++ ShoppingBasket(List<Cupcake> cupcakes)
++ boolean addCupcake()
++ boolean removeCupcake()
+}
+
+class Order{
+- int orderID
+- List<Cupcake> cupcakes
+- float totalPrice
+- boolean ordered
+- boolean paid
+- TimeStamp timestamp
++ Order(Super, int orderID, TimeStamp timestamp)
++ List<Cupcake> getCupcakes()
++ float getTotalPrice()
++ boolean getOrdered()
++ void setOrdered()
++ boolean getPaid()
++ void setPaid()
+}
+
+static class PaymentMapper{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+static class PaymentFacade{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class UserMapper{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class UserFacade{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class CupcakeMapper{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class CupcakeFacade{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class OrderMapper{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class OrderFacade{
+<<static>>
+- ConnectionPool connectionpool
+}
+
+class ConnectionPool{
+- HikariDataSource ds
+- String USER
+- String PASSWORD
+- STRING URL
++ ConnectionPool(String USER, String PASSWORD, String URL)
++ Connection getConnection()
++ void close()
+}
+
+User *-- Order
+Order <|-- ShoppingBasket
+Order *-- Cupcake
+ShoppingBasket *-- Cupcake
+Cupcake *-- CupcakeTopping
+Cupcake *-- CupcakeBase
+
+@enduml
