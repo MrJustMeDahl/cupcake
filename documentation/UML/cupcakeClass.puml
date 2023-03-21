@@ -11,20 +11,20 @@ class Cupcake{
 + CupcakeBase getCupcakeBase()
 }
 
-class CupcakeTopping{
+abstract class CupcakePart{
 - String flavor
 - float price
-+ CupcakeTopping(String flavor, float price)
++ CupcakePart(String flavor, float price)
 + float getPrice()
 + String getFlavor()
 }
 
+class CupcakeTopping{
++ CupcakeTopping(String flavor, float price)
+}
+
 class CupcakeBase{
-- String flavor
-- float price
 + CupcakeBase(String flavor, float price)
-+ float getPrice()
-+ String getFlavor()
 }
 
 class User{
@@ -43,7 +43,6 @@ class User{
 }
 
 class ShoppingBasket{
-+ ShoppingBasket(List<Cupcake> cupcakes)
 + boolean addCupcake()
 + boolean removeCupcake()
 }
@@ -118,7 +117,8 @@ User *-- Order
 Order <|-- ShoppingBasket
 Order *-- Cupcake
 ShoppingBasket *-- Cupcake
-Cupcake *-- CupcakeTopping
-Cupcake *-- CupcakeBase
+Cupcake *-- CupcakePart
+CupcakePart <|-- CupcakeTopping
+CupcakePart <|-- CupcakeBase
 
 @enduml

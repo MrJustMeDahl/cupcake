@@ -4,25 +4,29 @@ import java.util.Objects;
 
 public class User
 {
-    private String username;
+    private String email;
     private String password;
     private String role;
+    private String name;
+    private float balance = 0;
 
-    public User(String username, String password, String role)
+    public User(String email, String password, String role, String name, float balance)
     {
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.role = role;
+        this.name = name;
+        this.balance = balance;
     }
 
-    public String getUsername()
+    public String getEmail()
     {
-        return username;
+        return email;
     }
 
     public void setUsername(String username)
     {
-        this.username = username;
+        this.email = username;
     }
 
     public String getPassword()
@@ -51,21 +55,21 @@ public class User
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getUsername().equals(user.getUsername()) && getPassword().equals(user.getPassword()) &&
+        return getEmail().equals(user.getEmail()) && getPassword().equals(user.getPassword()) &&
                 getRole().equals(user.getRole());
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(getUsername(), getPassword(), getRole());
+        return Objects.hash(getEmail(), getPassword(), getRole());
     }
 
     @Override
     public String toString()
     {
         return "User{" +
-                "brugerNavn='" + username + '\'' +
+                "brugerNavn='" + email + '\'' +
                 ", kodeord='" + password + '\'' +
                 ", rolle='" + role + '\'' +
                 '}';
