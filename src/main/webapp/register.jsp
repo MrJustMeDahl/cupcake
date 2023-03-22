@@ -20,9 +20,9 @@
             <br/>
             <input type="text" id="name" name="name"/>
             <br/>
-            <label for="username">Indtast Email: </label>
+            <label for="email">Indtast Email: </label>
             <br/>
-            <input type="text" id="username" name="username"/>
+            <input type="text" id="email" name="email"/>
             <br/>
             <label for="password">Indtast Kodeord: </label>
             <br/>
@@ -31,8 +31,6 @@
             <input type="submit"  value="Opret bruger!"/>
 
         </form>
-
-
 
     </jsp:body>
 </t:pagetemplate>
