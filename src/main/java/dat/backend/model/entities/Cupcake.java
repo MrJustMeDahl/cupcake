@@ -6,7 +6,7 @@ public class Cupcake {
     private CupcakeBase base;
     private float fullPrice;
 
-    Cupcake(CupcakeTopping topping, CupcakeBase base){
+    public Cupcake(CupcakeTopping topping, CupcakeBase base){
         this.topping = topping;
         this.base = base;
         this.fullPrice = calculateFullPrice();
