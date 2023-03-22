@@ -11,20 +11,22 @@ class Cupcake{
 + CupcakeBase getCupcakeBase()
 }
 
-abstract class CupcakePart{
+class CupcakeTopping{
+- int cupcaketoppingeId
 - String flavor
 - float price
-+ CupcakePart(String flavor, float price)
++ CupcakeTopping(int cupcaketoppingeId, String flavor, float price)
 + float getPrice()
 + String getFlavor()
 }
 
-class CupcakeTopping{
-+ CupcakeTopping(String flavor, float price)
-}
-
 class CupcakeBase{
-+ CupcakeBase(String flavor, float price)
+- int cupcakebaseId
+- String flavor
+- float price
++ CupcakeBase(int cupcakebaseId, String flavor, float price)
++ float getPrice()
++ String getFlavor()
 }
 
 class User{
@@ -43,6 +45,7 @@ class User{
 }
 
 class ShoppingBasket{
++ ShoppingBasket(List<Cupcake> cupcakes)
 + boolean addCupcake()
 + boolean removeCupcake()
 }
@@ -83,14 +86,39 @@ class UserFacade{
 - ConnectionPool connectionpool
 }
 
-class CupcakeMapper{
+class CupcakeBaseMapper{
 <<static>>
 - ConnectionPool connectionpool
++ static List<CupcakeBase> getAllBases(ConnectionPool connectionpool)
++ static void addBaseFlavor(String flavor, float price, ConnectionPool connectionPool)
++ static void deleteBase(int cupcakebaseId, ConnectionPool connectionPool)
++ static void editbase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool)
+}
+class CupcakeToppingMapper{
+<<static>>
+- ConnectionPool connectionpool
++ static List<CupcakeTopping> getAllToppings(ConnectionPool connectionpool)
++ static void addToppingFlavor(String flavor, float price, ConnectionPool connectionPool)
++ static void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool)
++ static void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool)
 }
 
-class CupcakeFacade{
+class CupcakeBaseFacade{
 <<static>>
 - ConnectionPool connectionpool
++ static List<CupcakeBase> getAllBases(ConnectionPool connectionPool)
++ static void addBaseflavor(String flavor, float price, ConnectionPool connectionPool)
++ static void editBase (int cupcakebaseId, String name, float price, ConnectionPool connectionPool)
++ static void deleteBase (int cupcakebaseId, ConnectionPool connectionPool)
+}
+
+class CupcakeToppingFacade{
+<<static>>
+- ConnectionPool connectionpool
++ static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool)
++ static void addToppingflavor(String flavor, float price, ConnectionPool connectionPool)
++ static void editTopping (int cupcaketoppingId, String name, float price, ConnectionPool connectionPool)
++ static void deleteTopping (int cupcaketoppingId, ConnectionPool connectionPool)
 }
 
 class OrderMapper{
@@ -117,8 +145,7 @@ User *-- Order
 Order <|-- ShoppingBasket
 Order *-- Cupcake
 ShoppingBasket *-- Cupcake
-Cupcake *-- CupcakePart
-CupcakePart <|-- CupcakeTopping
-CupcakePart <|-- CupcakeBase
+Cupcake *-- CupcakeTopping
+Cupcake *-- CupcakeBase
 
 @enduml
