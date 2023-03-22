@@ -6,29 +6,31 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-             Login
+             Register
     </jsp:attribute>
 
     <jsp:attribute name="footer">
-            Login
+            Register
     </jsp:attribute>
 
     <jsp:body>
 
-
-
-        <form action="login" method="post">
-            <label for="username">Indtast Email: </label>
+        <form action="register" method="post">
+            <label for="name">Indtast Fulde navn: </label>
             <br/>
-            <input type="text" id="username" name="username"/>
+            <input type="text" id="name" name="name"/>
+            <br/>
+            <label for="email">Indtast Email: </label>
+            <br/>
+            <input type="text" id="email" name="email"/>
             <br/>
             <label for="password">Indtast Kodeord: </label>
             <br/>
             <input type="password" id="password" name="password"/>
             <br/>
-            <input type="submit"  value="Log in"/>
+            <input type="submit"  value="Opret bruger!"/>
+
         </form>
-        <p>Opret en ny bruger her: <a href="register.jsp">Opret</a>.
 
     </jsp:body>
 </t:pagetemplate>
