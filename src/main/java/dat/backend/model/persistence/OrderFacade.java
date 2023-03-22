@@ -1,4 +1,4 @@
-package dat.backend.model.facade;
+package dat.backend.model.persistence;
 
 import dat.backend.model.entities.Order;
 import dat.backend.model.exceptions.DatabaseException;
