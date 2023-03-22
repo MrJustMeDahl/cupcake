@@ -8,4 +8,8 @@ public class CupcakeTopping extends CupcakePart {
         super(flavor, price);
         this.toppingID = toppingID;
     }
+
+    public int getToppingID(){
+        return toppingID;
+    }
 }
