@@ -7,59 +7,59 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class UserMapper
-{
-    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
-    {
+public class UserMapper {
+    static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
         User user = null;
 
         String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
 
-        try (Connection connection = connectionPool.getConnection())
-        {
-            try (PreparedStatement ps = connection.prepareStatement(sql))
-            {
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setString(1, email);
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
-                if (rs.next())
-                {
+                if (rs.next()) {
                     String role = rs.getString("role");
                     String name = rs.getString("name");
                     float balance = Float.parseFloat(rs.getString("balance"));
-                    user = new User(email, password, role, name, balance);
-                } else
-                {
+                    user = new User(name, email, password, balance, role);
+                } else {
                     throw new DatabaseException("Wrong email or password");
                 }
             }
-        } catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             throw new DatabaseException(ex, "Error logging in. Something went wrong with the database");
         }
         return user;
     }
 
-    static User createUser(String email, String password, String role,String name, float balance, ConnectionPool connectionPool) throws DatabaseException
+    public static User createUser(String name, String email, String password, float balance, String role, ConnectionPool connectionPool) throws DatabaseException
     {
+
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
-        String sql = "insert into user (email, password, role, name, balance) values (?,?,?)";
+        String sql = "INSERT INTO user (name, email, password, balance, role) values (?,?,?,?,?)";
+        System.out.println("VI ER EFTER STATEMENT 333333333");
+
         try (Connection connection = connectionPool.getConnection())
         {
+
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                ps.setString(1, email);
-                ps.setString(2, password);
-                ps.setString(3, role);
-                ps.setString(4, name);
-                ps.setString(5, "0");
+                System.out.println("prepared statement1: " + ps);
+                ps.setString(1, name);
+                ps.setNString(2, email);
+                ps.setString(3, password);
+                ps.setFloat(4,0);
+                ps.setString(5, "user");
+                System.out.println("prepared statement1: " + ps);
                 int rowsAffected = ps.executeUpdate();
-                if (rowsAffected == 1)
+
+                if (rowsAffected > 0)
                 {
-                    user = new User(email, password, role, name, balance);
+                    user = new User(name, email, password, balance, role);
                 } else
                 {
                     throw new DatabaseException("The user with email = " + email + " could not be inserted into the database");
@@ -68,10 +68,9 @@ class UserMapper
         }
         catch (SQLException ex)
         {
+            System.out.println("SQL Error: " + ex.getMessage());
             throw new DatabaseException(ex, "Could not insert email into database");
         }
         return user;
     }
-
-
 }

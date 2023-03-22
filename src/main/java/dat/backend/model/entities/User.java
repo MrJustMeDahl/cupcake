@@ -10,7 +10,7 @@ public class User
     private String name;
     private float balance = 0;
 
-    public User(String email, String password, String role, String name, float balance)
+    public User(String name, String email, String password, float balance, String role)
     {
         this.email = email;
         this.password = password;
@@ -18,13 +18,21 @@ public class User
         this.name = name;
         this.balance = balance;
     }
+    public User(String name, String email, String password)
+    {
+        this.email = email;
+        this.password = password;
+        this.role = "user";
+        this.name = name;
+        this.balance = 0;
+    }
 
     public String getEmail()
     {
         return email;
     }
 
-    public void setUsername(String username)
+    public void setEmail(String username)
     {
         this.email = username;
     }
