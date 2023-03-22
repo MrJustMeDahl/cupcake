@@ -1,25 +1,15 @@
 package dat.backend.model.entities;
 
-public class CupcakeBase {
-    private int cupcakeBaseId;
-    private String flavorBase;
-    private float priceBase;
+public class CupcakeBase extends CupcakePart{
 
-    public CupcakeBase(int cupcakeBaseId, String flavorBase, float priceBase) {
-        this.cupcakeBaseId = cupcakeBaseId;
-        this.flavorBase = flavorBase;
-        this.priceBase = priceBase;
+    private int baseID;
+
+    public CupcakeBase(String flavor, float price, int baseID){
+        super(flavor, price);
+        this.baseID = baseID;
     }
 
-    public int getCupcakebaseId() {
-        return cupcakeBaseId;
-    }
-
-    public String getFlavorbase() {
-        return flavorBase;
-    }
-
-    public float getPricebase() {
-        return priceBase;
+    public int getBaseID() {
+        return baseID;
     }
 }
