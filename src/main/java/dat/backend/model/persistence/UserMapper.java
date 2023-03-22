@@ -52,7 +52,7 @@ public class UserMapper {
                 ps.setString(1, name);
                 ps.setNString(2, email);
                 ps.setString(3, password);
-                ps.setFloat(4,1000);
+                ps.setFloat(4,0);
                 ps.setString(5, "user");
                 System.out.println("prepared statement1: " + ps);
                 int rowsAffected = ps.executeUpdate();
