@@ -5,8 +5,8 @@ import java.util.List;
 
 public class ShoppingBasket extends Order{
 
-    public ShoppingBasket(int orderID, List<Cupcake> cupcakes, boolean ordered, boolean paid, Timestamp timestamp){
-        super(orderID, cupcakes, ordered, paid, timestamp);
+    public ShoppingBasket(int orderID, int userID, List<Cupcake> cupcakes, boolean ordered, boolean paid){
+        super(orderID, userID, cupcakes, ordered, paid);
     }
 
     public boolean addCupcake(Cupcake cupcake){

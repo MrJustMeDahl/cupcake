@@ -34,7 +34,7 @@ class OrderMapper {
         }
 
 
-        return ;
+        return null;
     }
 
     static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool){
@@ -82,7 +82,7 @@ class OrderMapper {
         return order;
     }
 
-    static List<Order> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
+    /*static List<Order> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
         List<Order> orders = new ArrayList<>();
         String sql = "SELECT orders.id AS order_id, order_items.product_id AS product_id FROM orders INNER JOIN order_items ON orders.id = order_items.order_id WHERE orders.user_id = ?";
 
@@ -109,5 +109,6 @@ class OrderMapper {
 
         return orders;
     }
+     */
 }
 
