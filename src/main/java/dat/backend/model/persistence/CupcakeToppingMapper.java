@@ -28,7 +28,7 @@ public class CupcakeToppingMapper {
                     String flavor = rs.getString("flavor");
                     float price = rs.getFloat("price");
 
-                    CupcakeTopping newCupcakeTopping = new CupcakeTopping(toppingId, flavor, price);
+                    CupcakeTopping newCupcakeTopping = new CupcakeTopping(flavor, price, toppingId);
                     cupcakeTopping.add(newCupcakeTopping);
                 }
             }

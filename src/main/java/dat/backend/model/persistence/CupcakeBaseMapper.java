@@ -27,7 +27,7 @@ public class CupcakeBaseMapper {
                 String flavor = rs.getString("flavor");
                 float price = rs.getFloat("price");
 
-                CupcakeBase newCupcakeBase = new CupcakeBase(baseId, flavor, price);
+                CupcakeBase newCupcakeBase = new CupcakeBase(flavor, price, baseId);
                 cupcakeBase.add(newCupcakeBase);
             }
         }
