@@ -4,6 +4,8 @@ import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,5 +71,27 @@ public class UserMapper {
             throw new DatabaseException(ex, "Could not insert email into database");
         }
         return user;
+    }
+
+    public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException{
+        List<User> allUsers = new ArrayList<>();
+        String sql = "SELECT * FROM cupcake.user";
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    int userId = rs.getInt("userId");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    float balance = rs.getFloat("balance");
+                    String role = rs.getString("role");
+                    allUsers.add(new User(userId, name, email, password, balance, role, OrderFacade.getOrdersByUserId(userId, connectionPool)));
+                }
+            }
+        } catch (SQLException e){
+            throw new DatabaseException("Failed to load users from database");
+        }
+        return allUsers;
     }
 }
