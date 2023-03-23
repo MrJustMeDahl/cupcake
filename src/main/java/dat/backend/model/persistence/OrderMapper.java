@@ -90,12 +90,12 @@ class OrderMapper {
         try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sqlOrder)){
                 ps.setInt(1, userId);
-                cupcakes = getCupcakesForOrder(id, connection);
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
                     id = rs.getInt("orderId");
                     isPaid = rs.getBoolean("isPaid");
                     isOrdered = rs.getBoolean("isOrdered");
+                    cupcakes = getCupcakesForOrder(id, connection);
                     orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
                 }
             } catch(SQLException e){
