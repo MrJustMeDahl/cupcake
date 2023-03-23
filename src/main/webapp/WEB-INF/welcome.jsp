@@ -3,28 +3,76 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page errorPage="../error.jsp" isErrorPage="false" %>
 
-<t:pagetemplate>
+        <t:pagetemplate>
     <jsp:attribute name="header">
          Welcome to the logged in area
     </jsp:attribute>
+
+            <jsp:body>
+
+                <h2>Ordersite</h2>
+
+                <table class ="align-center mt-5">
+                    <thead>
+                    <tr>
+                        <th>Base</th>
+                        <th>Topping</th>
+                        <th>Price</th>
+                        <th>number</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+
+                    <tr>
+             <%--********************************************
+                 select the cupcake base with a drop down
+             ********************************************--%>
+                        <form action ="list" method="post">
+                            <td>
+                                <select name="cupcakebase">
+                                    <c:forEach items="${requestScope.cupcakebaselist}" var="cupcakebase" >
+                                        <option value="${cupecakebaseId}"> ${cupcakebase.name}, ${cupcakebase.price}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+            <%--********************************************
+               select the cupcake topping with a drop down
+            ********************************************--%>
+                            <td>
+                                    <Select name="cupcaketopping">
+                                    <c:forEach items="${requestScope.cupcaketoppinglist}" var="cupcaketopping" >
+                                        <option value="${cupcaketoppingId}"> ${cupcaketopping.name}, ${cupcaketopping.price}</option>
+                                    </c:forEach>
+                                </select>
+                            </td>
+            <%--********************************************
+               see the total price for the cupcake
+            ********************************************--%>
+                            <td>
+
+
+                            </td>
+            <%--********************************************
+               choose how many cupcakes you want
+            ********************************************--%>
+                            <td>
+                              <input id="number" classs="d-inline form-control w-10"  type="number" name="quantity" placeholder="quantity" />
+                            </td>
+            <%--********************************************
+               press the button to add to basket
+            ********************************************--%>
+                            <td>
+                              <button formaction="Add" class="btn btn-outline-dark" style="float: right" name="cupcakeId" value="${cupcake.cupcakeId}"/>
+                            </td>
+                        </form>
+                    </tr>
+                </table>
+
+            </jsp:body>
+
 
     <jsp:attribute name="footer">
         Logged in area
     </jsp:attribute>
 
-    <jsp:body>
-
-        <p>You should be logged in now</p>
-
-        <c:if test="${sessionScope.user != null}">
-            <p>You are logged in with the role of "${sessionScope.user.role}".</p>
-        </c:if>
-
-        <c:if test="${sessionScope.user == null}">
-            <p>You are not logged in yet. You can do it here: <a
-                    href="../login.jsp">Login</a></p>
-        </c:if>
-
-    </jsp:body>
-
-</t:pagetemplate>
+        </t:pagetemplate>
