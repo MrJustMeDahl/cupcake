@@ -25,11 +25,17 @@ public class CupcakeList extends HttpServlet {
         request.setAttribute("cupcakebase", cupcakebaseList);
         request.setAttribute("cupcaketopping", cupcaketoppingList);
 
+
+
+
         request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
 
     }
 }
