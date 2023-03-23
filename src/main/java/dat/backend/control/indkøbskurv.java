@@ -33,7 +33,9 @@ public class indkøbskurv extends HttpServlet
         response.setContentType("text/html");
         HttpSession session = request.getSession();
         try {
-            List<Order> orderList = OrderFacade.getOrdersByUserId(3, connectionPool);
+            User user = (User) session.getAttribute("user");
+
+            List<Order> orderList = OrderFacade.getOrdersByUserId(user.getUserId(), connectionPool);
 
             session.setAttribute("orderlist", orderList);
             response.sendRedirect("shoppingcart.jsp");

@@ -42,6 +42,10 @@ public class Order {
         return totalPrice;
     }
 
+    public int getUserID() {
+        return userID;
+    }
+
     public boolean getOrdered() {
         return ordered;
     }

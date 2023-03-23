@@ -25,7 +25,7 @@
 
         <table>
             <c:forEach var="order" items="${sessionScope.orderlist}">
-                <c:if test="${order.ordered == false}">
+                <c:if test="${order.ordered == false && sessionScope.user.userId == order.userID}">
                 <tr>
 
                     <td>${order.cupcakes}</td>
