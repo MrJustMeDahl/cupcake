@@ -20,6 +20,9 @@
         <p>Kombinér din egen cupcake blandt vores mange muligheder af bunde og toppings!</p>
         <img src="${pageContext.request.contextPath}/images/cupcakemaking.jpg" width="300px;" class="img-fluid"/>
 
+        <p>Indkøbskurv</p>
+        <form action="indkøbskurv" method="get">
+        <input type="submit" value="opret ny kurv"> </form>
 
     </jsp:body>
 

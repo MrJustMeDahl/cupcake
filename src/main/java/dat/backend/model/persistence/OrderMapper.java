@@ -83,21 +83,23 @@ class OrderMapper {
     static List<Order> getOrdersByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException {
         List<Order> orders = new ArrayList<>();
         String sqlOrder = "SELECT * FROM cupcake.order WHERE userId = ?";
-        int id = 0;
-        List<Cupcake> cupcakes = new ArrayList<>();
+        int id = 10;
+        List<Cupcake> cupcakes;
         boolean isPaid = false;
         boolean isOrdered = false;
         try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sqlOrder)){
                 ps.setInt(1, userId);
-                cupcakes = getCupcakesForOrder(id, connection);
+
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
                     id = rs.getInt("orderId");
+                    cupcakes = getCupcakesForOrder(id, connection);
                     isPaid = rs.getBoolean("isPaid");
                     isOrdered = rs.getBoolean("isOrdered");
                     orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
                 }
+
             } catch(SQLException e){
                 e.printStackTrace();
             }
@@ -113,9 +115,11 @@ class OrderMapper {
         try(PreparedStatement ps = connection.prepareStatement(sqlCupcakebase)){
             ps.setInt(1, orderId);
             ResultSet rs = ps.executeQuery();
+
             while(rs.next()){
                 CupcakeBase cupcakeBase = new CupcakeBase(rs.getString("baseflavor"), rs.getFloat("basePrice"),rs.getInt("baseId"));
                 CupcakeTopping cupcakeTop = new CupcakeTopping(rs.getString("toppingflavor"), rs.getFloat("toppingprice"), rs.getInt("toppingId"));
+
                 cupcakes.add(new Cupcake(cupcakeTop, cupcakeBase));
             }
         } catch(SQLException e){

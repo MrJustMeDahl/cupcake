@@ -27,4 +27,14 @@ public class Cupcake {
     private float calculateFullPrice(){
         return topping.getPrice() + base.getPrice();
     }
+
+
+    @Override
+    public String toString() {
+
+        return "Cupcake med topping: " + topping + " og med bunden: " + base;
+    }
 }
+
+
+

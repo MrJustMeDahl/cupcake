@@ -1,14 +1,24 @@
 package dat.backend.model.entities;
 
+import dat.backend.model.exceptions.DatabaseException;
+import dat.backend.model.persistence.ConnectionPool;
+import dat.backend.model.persistence.OrderFacade;
+import dat.backend.model.persistence.UserFacade;
+
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User
 {
+    private int userId;
     private String email;
     private String password;
     private String role;
     private String name;
     private float balance = 0;
+    List<Order> userOrders = new ArrayList<>();
 
     public User(String name, String email, String password, float balance, String role)
     {
@@ -25,6 +35,23 @@ public class User
         this.role = "user";
         this.name = name;
         this.balance = 0;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserOrders(List<Order> userOrders) {
+        this.userOrders = userOrders;
+    }
+
+    public List<Order> getUserOrders() {
+        return userOrders;
     }
 
     public String getEmail()

@@ -11,6 +11,7 @@ public class UserMapper {
     static User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException {
         Logger.getLogger("web").log(Level.INFO, "");
 
+
         User user = null;
 
         String sql = "SELECT * FROM user WHERE email = ? AND password = ?";
@@ -23,8 +24,13 @@ public class UserMapper {
                 if (rs.next()) {
                     String role = rs.getString("role");
                     String name = rs.getString("name");
+                    int ID = rs.getInt("userId");
                     float balance = Float.parseFloat(rs.getString("balance"));
                     user = new User(name, email, password, balance, role);
+                    user.setUserId(ID);
+                    System.out.println("USERID ER NU: " + user.getUserId());
+
+                    user.setUserOrders(OrderFacade.getOrdersByUserId(ID,connectionPool));
                 } else {
                     throw new DatabaseException("Wrong email or password");
                 }
