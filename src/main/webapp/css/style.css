@@ -11,5 +11,13 @@ th, td {
     padding:15px;
 }
 
+head{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.displayInLine{
+    display: inline-block;
+}
 
 

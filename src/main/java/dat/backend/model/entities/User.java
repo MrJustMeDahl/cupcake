@@ -1,22 +1,27 @@
 package dat.backend.model.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 public class User
 {
+    private int userId;
     private String email;
     private String password;
     private String role;
     private String name;
-    private float balance = 0;
+    private float balance;
+    private List<Order> allOrders;
 
-    public User(String name, String email, String password, float balance, String role)
+    public User(int userId, String name, String email, String password, float balance, String role, List<Order> allOrders)
     {
+        this.userId = userId;
         this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
         this.balance = balance;
+        this.allOrders = allOrders;
     }
     public User(String name, String email, String password)
     {
@@ -25,6 +30,10 @@ public class User
         this.role = "user";
         this.name = name;
         this.balance = 0;
+    }
+
+    public int getUserId(){
+        return userId;
     }
 
     public String getEmail()
