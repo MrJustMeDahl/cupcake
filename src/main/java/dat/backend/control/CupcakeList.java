@@ -20,10 +20,7 @@ public class CupcakeList extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<CupcakeBase> cupcakebaseList = CupcakeBaseFacade.getAllBases(connectionPool);
-        List<CupcakeTopping> cupcaketoppingList = CupcakeToppingFacade.getAllToppings(connectionPool);
-        request.setAttribute("cupcakebase", cupcakebaseList);
-        request.setAttribute("cupcaketopping", cupcaketoppingList);
+
 
 
 

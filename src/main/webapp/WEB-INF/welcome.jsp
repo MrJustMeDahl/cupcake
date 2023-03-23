@@ -16,7 +16,7 @@
 
         <h2>Ordersite</h2>
         <c:if test="${sessionScope.user!= null}">
-            <h3> Welcome "${sessionScope.user.name}"</h3>
+            <p> Welcome "${sessionScope.user.name}"</p>
         </c:if>
 
 
@@ -25,7 +25,6 @@
             <tr>
                 <th>Base</th>
                 <th>Topping</th>
-                <th>Price</th>
                 <th>number</th>
                 <th>Action</th>
             </tr>
@@ -38,8 +37,8 @@
                 <form action="list" method="post">
                     <td>
                         <select name="cupcakebase" id="base">
-                            <c:forEach items="${requestScope.cupcakebaselist}" var="cupcakebase">
-                                <option value="${cupecakebaseId}"> ${cupcakebase.name}, ${cupcakebase.price}</option>
+                            <c:forEach items="${requestScope.cupcakebase}" var="cupcakebase">
+                                <option value="${cupcakebase.baseID}"> ${cupcakebase.flavor} - ${cupcakebase.price}kr</option>
                             </c:forEach>
                         </select>
                     </td>
@@ -48,18 +47,10 @@
                         ********************************************--%>
                     <td>
                         <Select name="cupcaketopping" id="topping">
-                            <c:forEach items="${requestScope.cupcaketoppinglist}" var="cupcaketopping">
-                                <option value="${cupcaketoppingId}"> ${cupcaketopping.name}, ${cupcaketopping.price}</option>
+                            <c:forEach items="${requestScope.cupcaketopping}" var="cupcaketopping">
+                                <option value="${cupcaketopping.toppingID}"> ${cupcaketopping.flavor} - ${cupcaketopping.price}kr</option>
                             </c:forEach>
                         </select>
-                    </td>
-                        <%--********************************************
-                           see the total price for the cupcake
-                        ********************************************--%>
-                    <td>
-                        <c:if test="${base!=null && topping!=null}">
-                            ${cupcakebaseList.price + cupcaketopping.price}
-                        </c:if>
                     </td>
                         <%--********************************************
                            choose how many cupcakes you want
@@ -72,8 +63,9 @@
                            press the button to add to basket
                         ********************************************--%>
                     <td>
-                        <button formaction="Add" class="btn btn-outline-dark" name="cupcakeId"
-                                value="${cupcake.cupcakeId}"/>
+                        <button formaction="AddCupcakeToOrder" class="btn btn-outline-dark" name="cupcakeId"
+                                value="${cupcake.cupcakeId}">Add</button>
+
                     </td>
                 </form>
             </tr>
