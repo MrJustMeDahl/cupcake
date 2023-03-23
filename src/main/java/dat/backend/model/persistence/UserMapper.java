@@ -21,10 +21,11 @@ public class UserMapper {
                 ps.setString(2, password);
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
+                    int userId = rs.getInt("userId");
                     String role = rs.getString("role");
                     String name = rs.getString("name");
                     float balance = Float.parseFloat(rs.getString("balance"));
-                    user = new User(name, email, password, balance, role);
+                    user = new User(userId, name, email, password, balance, role, OrderFacade.getOrdersByUserId(userId, connectionPool));
                 } else {
                     throw new DatabaseException("Wrong email or password");
                 }
@@ -35,31 +36,27 @@ public class UserMapper {
         return user;
     }
 
-    public static User createUser(String name, String email, String password, float balance, String role, ConnectionPool connectionPool) throws DatabaseException
+    public static User createUser(String name, String email, String password, ConnectionPool connectionPool) throws DatabaseException
     {
 
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
-        String sql = "INSERT INTO user (name, email, password, balance, role) values (?,?,?,?,?)";
-        System.out.println("VI ER EFTER STATEMENT 333333333");
+        String sql = "INSERT INTO user (name, email, password) values (?,?,?)";
+
 
         try (Connection connection = connectionPool.getConnection())
         {
 
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                System.out.println("prepared statement1: " + ps);
                 ps.setString(1, name);
                 ps.setNString(2, email);
                 ps.setString(3, password);
-                ps.setFloat(4,0);
-                ps.setString(5, "user");
-                System.out.println("prepared statement1: " + ps);
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0)
                 {
-                    user = new User(name, email, password, balance, role);
+                    user = login(email, password, connectionPool);
                 } else
                 {
                     throw new DatabaseException("The user with email = " + email + " could not be inserted into the database");
