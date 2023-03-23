@@ -9,7 +9,7 @@
          Welcome to the logged in area
     </jsp:attribute>
 
-            <jsp:attribute name="footer">
+    <jsp:attribute name="footer">
     </jsp:attribute>
 
     <jsp:body>
@@ -38,7 +38,8 @@
                     <td>
                         <select name="cupcakebase" id="base">
                             <c:forEach items="${requestScope.cupcakebase}" var="cupcakebase">
-                                <option value="${cupcakebase.baseID}"> ${cupcakebase.flavor} - ${cupcakebase.price}kr</option>
+                                <option value="${cupcakebase.baseID}"> ${cupcakebase.flavor} - ${cupcakebase.price}kr
+                                </option>
                             </c:forEach>
                         </select>
                     </td>
@@ -48,7 +49,9 @@
                     <td>
                         <Select name="cupcaketopping" id="topping">
                             <c:forEach items="${requestScope.cupcaketopping}" var="cupcaketopping">
-                                <option value="${cupcaketopping.toppingID}"> ${cupcaketopping.flavor} - ${cupcaketopping.price}kr</option>
+                                <option value="${cupcaketopping.toppingID}"> ${cupcaketopping.flavor}
+                                    - ${cupcaketopping.price}kr
+                                </option>
                             </c:forEach>
                         </select>
                     </td>
@@ -57,14 +60,15 @@
                         ********************************************--%>
                     <td>
                         <input id="number" classs="d-inline form-control w-10" type="number" name="quantity"
-                               placeholder="quantity"/>
+                               placeholder="quantity" min="1"/>
                     </td>
                         <%--********************************************
                            press the button to add to basket
                         ********************************************--%>
                     <td>
                         <button formaction="AddCupcakeToOrder" class="btn btn-outline-dark" name="cupcakeId"
-                                value="${cupcake.cupcakeId}">Add</button>
+                                value="${cupcake.cupcakeId}">Add
+                        </button>
 
                     </td>
                 </form>
