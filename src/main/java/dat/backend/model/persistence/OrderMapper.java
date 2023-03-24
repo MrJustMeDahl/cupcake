@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.Cupcake;
-import dat.backend.model.entities.CupcakeBase;
-import dat.backend.model.entities.CupcakeTopping;
-import dat.backend.model.entities.Order;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -96,7 +93,11 @@ class OrderMapper {
                     isPaid = rs.getBoolean("isPaid");
                     isOrdered = rs.getBoolean("isOrdered");
                     cupcakes = getCupcakesForOrder(id, connection);
-                    orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
+                    if(isOrdered) {
+                        orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
+                    } else {
+                        orders.add(new ShoppingBasket(id, userId, cupcakes, isOrdered, isPaid));
+                    }
                 }
             } catch(SQLException e){
                 e.printStackTrace();
