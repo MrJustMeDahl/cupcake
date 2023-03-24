@@ -36,6 +36,10 @@ public class User
         return name;
     }
 
+    public float getBalance(){
+        return balance;
+    }
+
     public int getUserId(){
         return userId;
     }

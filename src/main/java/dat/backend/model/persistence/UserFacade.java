@@ -20,4 +20,8 @@ public class UserFacade
     public static List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException{
         return UserMapper.getAllUsers(connectionPool);
     }
+
+    public static void updateBalance(float amount, int userID, ConnectionPool connectionPool) throws DatabaseException{
+        UserMapper.updateBalance(amount, userID, connectionPool);
+    }
 }

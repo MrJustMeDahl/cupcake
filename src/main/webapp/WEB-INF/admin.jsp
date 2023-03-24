@@ -29,12 +29,17 @@
                                 Filtrér
                             </button>
                         </div>
+
                         <div class="ms-auto">
                             <c:choose>
                                 <c:when test="${requestScope.chosenCustomer == 0 || requestScope.chosenCustomer == null}">
                                     Alle brugere
                                 </c:when>
                                 <c:otherwise>
+                                    <form>
+                                        <button type="submit" name="chosenuser" value="${requestScope.chosenCustomer}" class="btn btn-sm - btn-outline-success" formaction="giveusermoney" formmethod="post">Giv kunde kredit</button>
+                                        <input type="number" name="credit" placeholder="Indtast beløb"/>
+                                    </form>
                                     <c:forEach var="user" items="${requestScope.alluserslist}">
                                         <c:if test="${user.userId == requestScope.chosenCustomer}">
                                             Valgt bruger: ${user.name}

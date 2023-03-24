@@ -94,4 +94,43 @@ public class UserMapper {
         }
         return allUsers;
     }
+
+    public static void updateBalance(float amount, int userID, ConnectionPool connectionPool) throws DatabaseException{
+        String sqlUpdate = "UPDATE cupcake.user SET balance = ? WHERE userId = ?";
+        User user = getUserByID(userID, connectionPool);
+        float newBalance = user.getBalance();
+        newBalance += amount;
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sqlUpdate)){
+                ps.setFloat(1, newBalance);
+                ps.setInt(2, userID);
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to update balance in user table, in database");
+        }
+    }
+
+    private static User getUserByID(int userID, ConnectionPool connectionPool) throws DatabaseException{
+        String sql = "SELECT * FROM cupcake.user WHERE userId = ?";
+        User user = null;
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setInt(1, userID);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    int userId = rs.getInt("userId");
+                    String name = rs.getString("name");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    float balance = rs.getFloat("balance");
+                    String role = rs.getString("role");
+                    user = new User(userId, name, email, password, balance, role, OrderFacade.getOrdersByUserId(userId, connectionPool));
+                }
+            }
+        }catch(SQLException e){
+            throw new DatabaseException("No user found with userID: " + userID);
+        }
+        return user;
+    }
 }
