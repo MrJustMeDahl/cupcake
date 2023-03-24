@@ -15,7 +15,7 @@ public class User
     private int userId;
     private String email;
     private String password;
-    private String role;
+    private String role = "user";
     private String name;
     private float balance = 0;
     List<Order> userOrders = new ArrayList<>();

@@ -41,7 +41,7 @@ public class UserMapper {
         return user;
     }
 
-    public static User createUser(String name, String email, String password, float balance, String role, ConnectionPool connectionPool) throws DatabaseException
+    public static User createUser(String name, String email, String password,  ConnectionPool connectionPool) throws DatabaseException
     {
 
         Logger.getLogger("web").log(Level.INFO, "");
@@ -65,7 +65,7 @@ public class UserMapper {
 
                 if (rowsAffected > 0)
                 {
-                    user = new User(name, email, password, balance, role);
+                    user = new User(name, email, password);
                 } else
                 {
                     throw new DatabaseException("The user with email = " + email + " could not be inserted into the database");
