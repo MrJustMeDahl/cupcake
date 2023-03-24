@@ -1,22 +1,17 @@
 package dat.backend.control;
 
 import dat.backend.model.config.ApplicationStart;
-import dat.backend.model.entities.Order;
-import dat.backend.model.entities.User;
 import dat.backend.model.exceptions.DatabaseException;
 import dat.backend.model.persistence.ConnectionPool;
 import dat.backend.model.persistence.OrderFacade;
-import dat.backend.model.persistence.UserFacade;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet(name = "Admin", value = "/admin")
-public class Admin extends HttpServlet {
+@WebServlet(name = "AdminUpdatePaid", value = "/adminupdatepaid")
+public class AdminUpdatePaid extends HttpServlet {
 
     private ConnectionPool connectionPool;
 
@@ -28,19 +23,10 @@ public class Admin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int orderID = Integer.parseInt(request.getParameter("orderid"));
         try {
-            List<User> allUsers = UserFacade.getAllUsers(connectionPool);
-            List<Order> allOrders = new ArrayList<>();
-            for(User u: allUsers){
-                List<Order> ordersForUser = OrderFacade.getOrdersByUserId(u.getUserId(), connectionPool);
-                for(Order o: ordersForUser){
-                    allOrders.add(o);
-                }
-            }
-            request.setAttribute("chosenOrder", request.getParameter("orderid"));
-            request.setAttribute("alluserslist", allUsers);
-            request.setAttribute("allorderslist", allOrders);
-            request.getRequestDispatcher("WEB-INF/admin.jsp").forward(request, response);
+            OrderFacade.updateOrderPaid(orderID, false, connectionPool);
+            response.sendRedirect("admin");
         } catch (DatabaseException e){
             request.setAttribute("errormessage", e);
             request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -49,6 +35,13 @@ public class Admin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        int orderID = Integer.parseInt(request.getParameter("orderid"));
+        try {
+            OrderFacade.updateOrderPaid(orderID, true, connectionPool);
+            response.sendRedirect("admin");
+        } catch (DatabaseException e){
+            request.setAttribute("errormessage", e);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 }

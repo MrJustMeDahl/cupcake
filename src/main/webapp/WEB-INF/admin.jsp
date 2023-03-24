@@ -18,15 +18,107 @@
                     <table class="table table-striped mt-4">
                         <thead>
                         <th>Ordre ID:</th>
-                        <th>Totalbeløb:</th>
-                        <th>Bestilt:</th>
+                        <th>Kunde:</th>
+                        <th>Samlet pris:</th>
                         <th>Betalt:</th>
+                        <th></th>
                         </thead>
-                        <tr>
-                            <td>
+                        <form>
+                            <c:forEach var="order" items="${requestScope.allorderslist}">
+                                <c:if test="${order.ordered && !order.paid}">
+                                    <tr>
+                                        <td>
+                                                ${order.orderID}
+                                        </td>
+                                        <td>
+                                            <c:forEach var="user" items="${requestScope.alluserslist}">
+                                                <c:if test="${order.userID == user.userId}">
+                                                    ${user.name}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                                ${order.totalPrice}
+                                        </td>
 
-                            </td>
-                        </tr>
+                                        <td>
+                                                ${order.paid}
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                    formaction="adminupdatepaid" formmethod="post" name="orderid" value="${order.orderID}">
+                                                Er betalt
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-warning btn-sm"
+                                                    formaction="deleteorder"
+                                                    formmethod="post" name="orderid" value="${order.orderID}">
+                                                Slet ordre
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
+                        </form>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h1>Completed Orders:</h1>
+                    <table class="table table-striped mt-4">
+                        <thead>
+                        <th>Ordre ID:</th>
+                        <th>Kunde:</th>
+                        <th>Samlet pris:</th>
+                        <th>Betalt:</th>
+                        <th></th>
+                        </thead>
+                        <form>
+                            <c:forEach var="order" items="${requestScope.allorderslist}">
+                                <c:if test="${order.ordered && order.paid}">
+                                    <tr>
+                                        <td>
+                                                ${order.orderID}
+                                        </td>
+                                        <td>
+                                            <c:forEach var="user" items="${requestScope.alluserslist}">
+                                                <c:if test="${order.userID == user.userId}">
+                                                    ${user.name}
+                                                </c:if>
+                                            </c:forEach>
+                                        </td>
+                                        <td>
+                                                ${order.totalPrice}
+                                        </td>
+                                        <td>
+                                                ${order.paid}
+                                        </td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${requestScope.chosenOrder != order.orderID}">
+                                                    <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                            value="${order.orderID}"
+                                                            name="orderid" , formaction="admin" formmethod="get">
+                                                        Åben ordre
+                                                    </button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                            formaction="adminupdatepaid" formmethod="get" name="orderid" value="${order.orderID}">
+                                                        Ikke betalt
+                                                    </button>
+                                                    <button type="submit" class="btn btn-outline-warning btn-sm"
+                                                            formaction="deleteorder"
+                                                            formmethod="post" name="orderid" value="${order.orderID}">
+                                                        Slet ordre
+                                                    </button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
+                        </form>
                     </table>
                 </div>
             </div>

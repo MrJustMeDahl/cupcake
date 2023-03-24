@@ -32,6 +32,10 @@ public class User
         this.balance = 0;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public int getUserId(){
         return userId;
     }
