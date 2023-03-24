@@ -11,16 +11,26 @@
     </jsp:attribute>
 
     <jsp:body>
-    <div class="text-center">
-        <div class="card">
-            <div class="card-body">
-                <h1>Ongoing orders:</h1>
-                <table class="table table-striped mt-4">
+        <div class="text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Ongoing orders:</h1>
+                    <table class="table table-striped mt-4">
+                        <thead>
+                        <th>Ordre ID:</th>
+                        <th>Totalbeløb:</th>
+                        <th>Bestilt:</th>
+                        <th>Betalt:</th>
+                        </thead>
+                        <tr>
+                            <td>
 
-                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
 
     </jsp:body>
 
