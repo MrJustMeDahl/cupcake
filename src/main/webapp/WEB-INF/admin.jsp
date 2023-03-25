@@ -17,6 +17,7 @@
                     <div class="d-flex">
                         <div class="col-3">
                             <select name="userid">
+                                <option>Vælg bruger</option>
                                 <option value="0">Alle brugere</option>
                                 <c:forEach var="user" items="${requestScope.alluserslist}">
                                     <option value="${user.userId}">${user.userId}. ${user.name}</option>
@@ -32,16 +33,17 @@
 
                         <div class="ms-auto">
                             <c:choose>
-                                <c:when test="${requestScope.chosenCustomer == 0 || requestScope.chosenCustomer == null}">
+                                <c:when test="${sessionScope.chosenCustomer == 0 || sessionScope.chosenCustomer == null}">
                                     Alle brugere
                                 </c:when>
                                 <c:otherwise>
-                                    <form>
-                                        <button type="submit" name="chosenuser" value="${requestScope.chosenCustomer}" class="btn btn-sm - btn-outline-success" formaction="giveusermoney" formmethod="post">Giv kunde kredit</button>
+                                        <button type="submit" name="chosenuser" value="${sessionScope.chosenCustomer}"
+                                                class="btn btn-sm - btn-outline-success" formaction="giveusermoney"
+                                                formmethod="post">Giv kunde kredit
+                                        </button>
                                         <input type="number" name="credit" placeholder="Indtast beløb"/>
-                                    </form>
                                     <c:forEach var="user" items="${requestScope.alluserslist}">
-                                        <c:if test="${user.userId == requestScope.chosenCustomer}">
+                                        <c:if test="${user.userId == sessionScope.chosenCustomer}">
                                             Valgt bruger: ${user.name}
                                         </c:if>
                                     </c:forEach>
@@ -52,7 +54,7 @@
                 </div>
             </form>
             <c:choose>
-                <c:when test="${requestScope.chosenCustomer == 0 || requestScope.chosenCustomer == null}">
+                <c:when test="${sessionScope.chosenCustomer == 0 || sessionScope.chosenCustomer == null}">
                     <div class="card mt-2">
                         <div class="card-body">
                             <h1>Ongoing orders:</h1>
@@ -86,17 +88,30 @@
                                                         ${order.paid}
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                            formaction="adminupdatepaid" formmethod="post"
-                                                            name="orderid"
-                                                            value="${order.orderID}">
-                                                        Er betalt
-                                                    </button>
-                                                    <button type="submit" class="btn btn-outline-warning btn-sm"
-                                                            formaction="deleteorder"
-                                                            formmethod="post" name="orderid" value="${order.orderID}">
-                                                        Slet ordre
-                                                    </button>
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.chosenOrder != order.orderID}">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                                    value="${order.orderID}"
+                                                                    name="orderid" , formaction="admin"
+                                                                    formmethod="get">
+                                                                Åben ordre
+                                                            </button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button type="submit" class="btn btn-outline-success btn-sm"
+                                                                    formaction="adminupdatepaid" formmethod="post"
+                                                                    name="orderid"
+                                                                    value="${order.orderID}">
+                                                                Er betalt
+                                                            </button>
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                                    formaction="deleteorder"
+                                                                    formmethod="post" name="orderid"
+                                                                    value="${order.orderID}">
+                                                                Slet ordre
+                                                            </button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                             </tr>
                                         </c:if>
@@ -147,13 +162,13 @@
                                                             </button>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                            <button type="submit" class="btn btn-outline-warning btn-sm"
                                                                     formaction="adminupdatepaid" formmethod="get"
                                                                     name="orderid"
                                                                     value="${order.orderID}">
                                                                 Ikke betalt
                                                             </button>
-                                                            <button type="submit" class="btn btn-outline-warning btn-sm"
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
                                                                     formaction="deleteorder"
                                                                     formmethod="post" name="orderid"
                                                                     value="${order.orderID}">
@@ -184,7 +199,7 @@
                                 </thead>
                                 <form>
                                     <c:forEach var="order" items="${requestScope.allorderslist}">
-                                        <c:if test="${order.ordered && !order.paid && order.userID == requestScope.chosenCustomer}">
+                                        <c:if test="${order.ordered && !order.paid && order.userID == sessionScope.chosenCustomer}">
                                             <tr>
                                                 <td>
                                                         ${order.orderID}
@@ -204,17 +219,30 @@
                                                         ${order.paid}
                                                 </td>
                                                 <td>
-                                                    <button type="submit" class="btn btn-outline-primary btn-sm"
-                                                            formaction="adminupdatepaid" formmethod="post"
-                                                            name="orderid"
-                                                            value="${order.orderID}">
-                                                        Er betalt
-                                                    </button>
-                                                    <button type="submit" class="btn btn-outline-warning btn-sm"
-                                                            formaction="deleteorder"
-                                                            formmethod="post" name="orderid" value="${order.orderID}">
-                                                        Slet ordre
-                                                    </button>
+                                                    <c:choose>
+                                                        <c:when test="${requestScope.chosenOrder != order.orderID}">
+                                                            <button type="submit" class="btn btn-outline-primary btn-sm"
+                                                                    value="${order.orderID}"
+                                                                    name="orderid" , formaction="admin"
+                                                                    formmethod="get">
+                                                                Åben ordre
+                                                            </button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button type="submit" class="btn btn-outline-success btn-sm"
+                                                                    formaction="adminupdatepaid" formmethod="post"
+                                                                    name="orderid"
+                                                                    value="${order.orderID}">
+                                                                Er betalt
+                                                            </button>
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                                    formaction="deleteorder"
+                                                                    formmethod="post" name="orderid"
+                                                                    value="${order.orderID}">
+                                                                Slet ordre
+                                                            </button>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                 </td>
                                             </tr>
                                         </c:if>
@@ -236,7 +264,7 @@
                                 </thead>
                                 <form>
                                     <c:forEach var="order" items="${requestScope.allorderslist}">
-                                        <c:if test="${order.ordered && order.paid && order.userID == requestScope.chosenCustomer}">
+                                        <c:if test="${order.ordered && order.paid && order.userID == sessionScope.chosenCustomer}">
                                             <tr>
                                                 <td>
                                                         ${order.orderID}
@@ -265,13 +293,13 @@
                                                             </button>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                            <button type="submit" class="btn btn-outline-warning btn-sm"
                                                                     formaction="adminupdatepaid" formmethod="get"
                                                                     name="orderid"
                                                                     value="${order.orderID}">
                                                                 Ikke betalt
                                                             </button>
-                                                            <button type="submit" class="btn btn-outline-warning btn-sm"
+                                                            <button type="submit" class="btn btn-outline-danger btn-sm"
                                                                     formaction="deleteorder"
                                                                     formmethod="post" name="orderid"
                                                                     value="${order.orderID}">

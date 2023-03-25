@@ -37,7 +37,10 @@ public class Admin extends HttpServlet {
                     allOrders.add(o);
                 }
             }
-            request.setAttribute("chosenCustomer", request.getParameter("userid"));
+            HttpSession session = request.getSession();
+            if(request.getParameter("userid") != null) {
+                session.setAttribute("chosenCustomer", request.getParameter("userid"));
+            }
             request.setAttribute("chosenOrder", request.getParameter("orderid"));
             request.setAttribute("alluserslist", allUsers);
             request.setAttribute("allorderslist", allOrders);
