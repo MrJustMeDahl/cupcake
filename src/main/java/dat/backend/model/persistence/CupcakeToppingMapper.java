@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class CupcakeToppingMapper {
 
 
-    public static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool) {
+    public static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool) throws DatabaseException{
         String sql = "SELECT * FROM cupcaketopping";
         List<CupcakeTopping> cupcakeTopping = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public class CupcakeToppingMapper {
             }
 
         }catch (SQLException e){
-            e.printStackTrace();
+            throw new DatabaseException("Could not retrieve list of toppings");
         }
 
         return cupcakeTopping;
@@ -57,7 +57,7 @@ public class CupcakeToppingMapper {
 
     }
 
-    public static void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool) {
+    public static void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "DELETE FROM cupcaketopping WHERE cupcaketoppingId = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)){;
@@ -65,11 +65,11 @@ public class CupcakeToppingMapper {
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException("Failed to delete topping in database");
         }
     }
 
-    public static void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool) {
+    public static void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException {
         String sql = "UPDATE item SET flavor = ? AND price = ? WHERE cupcakebase_id = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)){
@@ -79,7 +79,7 @@ public class CupcakeToppingMapper {
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException("Failed to edit topping");
         }
     }
 }

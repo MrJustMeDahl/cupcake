@@ -13,7 +13,7 @@ public class OrderFacade {
         return OrderMapper.createOrder(cupcake, userId, connectionPool);
     }
 
-    public static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool){
+    public static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException{
         return OrderMapper.getOrderByOrderId(orderId, connectionPool);
     }
 

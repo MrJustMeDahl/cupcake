@@ -39,12 +39,12 @@ class OrderMapper {
                 ps.executeUpdate();
             }
         } catch (SQLException ex) {
-            throw new DatabaseException(ex, "Error creating order. Something went wrong with the database");
+            throw new DatabaseException(ex, "Error creating order. Cupcake was not added to order");
         }
         return new Order(orderId, userId, cupcakes, false, false);
     }
 
-    static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool){
+    static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException{
         String sqlOrder = "SELECT * FROM cupcake.order WHERE orderId = ?";
         Order order;
         int id = 0;
@@ -63,15 +63,15 @@ class OrderMapper {
                     isOrdered = rs.getBoolean("isOrdered");
                 }
             } catch(SQLException e){
-                e.printStackTrace();
+                throw new DatabaseException("Failed to retrieve order with id: " + orderId);
             }
         } catch(SQLException e){
-            e.printStackTrace();
+            throw new DatabaseException("Failed to retrieve order with id: " + orderId);
         }
         try(Connection connection = connectionPool.getConnection()){
             cupcakes = getCupcakesForOrder(id, connection);
         } catch (SQLException e){
-
+            throw new DatabaseException("Failed to retrieve cupcakes on order with id: " + orderId);
         }
         order = new Order(id, userId, cupcakes, isPaid, isOrdered);
         return order;
@@ -100,15 +100,15 @@ class OrderMapper {
                     }
                 }
             } catch(SQLException e){
-                e.printStackTrace();
+                throw new DatabaseException("Failed to retrieve orders for user with id: " + userId);
             }
         } catch(SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException("Failed to retrieve orders for user with id: " + userId);
         }
         return orders;
     }
 
-    private static List<Cupcake> getCupcakesForOrder(int orderId, Connection connection){
+    private static List<Cupcake> getCupcakesForOrder(int orderId, Connection connection) throws DatabaseException{
         String sqlCupcakebase = "SELECT * FROM cupcake.cupcakeview WHERE orderId = ?";
         List<Cupcake> cupcakes = new ArrayList<>();
         try(PreparedStatement ps = connection.prepareStatement(sqlCupcakebase)){
@@ -120,7 +120,7 @@ class OrderMapper {
                 cupcakes.add(new Cupcake(cupcakeTop, cupcakeBase));
             }
         } catch(SQLException e){
-            e.printStackTrace();
+            throw new DatabaseException("Failed to get cupcakes on order with order id: " + orderId);
         }
         return cupcakes;
     }

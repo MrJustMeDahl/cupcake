@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class CupcakeBaseMapper {
 
 
-    public static List<CupcakeBase> getAllBases(ConnectionPool connectionPool) {
+    public static List<CupcakeBase> getAllBases(ConnectionPool connectionPool) throws DatabaseException{
     String sql = "SELECT * FROM cupcakebase";
     List<CupcakeBase> cupcakeBase = new ArrayList<>();
 
@@ -33,7 +33,7 @@ public class CupcakeBaseMapper {
         }
 
     }catch (SQLException e){
-        e.printStackTrace();
+        throw new DatabaseException("Failed to retrieve list of bases");
     }
 
         return cupcakeBase;
@@ -56,7 +56,7 @@ public class CupcakeBaseMapper {
 
     }
 
-    public static void deleteBase(int cupcakebase_id, ConnectionPool connectionPool) {
+    public static void deleteBase(int cupcakebase_id, ConnectionPool connectionPool) throws DatabaseException {
     String sql = "DELETE FROM cupcakebase WHERE cupcakebaseId = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)){;
@@ -64,11 +64,11 @@ public class CupcakeBaseMapper {
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException("Failed to delete base in database");
         }
     }
 
-    public static void editBase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool) {
+    public static void editBase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException{
         String sql = "UPDATE item SET flavor = ? AND price = ? WHERE cupcakebaseId = ?";
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sql)){
@@ -78,7 +78,7 @@ public class CupcakeBaseMapper {
                 ps.executeUpdate();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseException("Could not edit base in database");
         }
     }
 }
