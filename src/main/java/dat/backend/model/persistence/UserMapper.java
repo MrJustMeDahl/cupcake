@@ -26,13 +26,13 @@ public class UserMapper {
                 if (rs.next()) {
                     String role = rs.getString("role");
                     String name = rs.getString("name");
-                    int ID = rs.getInt("userId");
+                    int userId = rs.getInt("userId");
                     float balance = Float.parseFloat(rs.getString("balance"));
-                    user = new User(name, email, password, balance, role);
-                    user.setUserId(ID);
+                    user = new User(userId, name, email, password, balance, role, OrderFacade.getOrdersByUserId(userId, connectionPool));
+                    user.setUserId(userId);
                     System.out.println("USERID ER NU: " + user.getUserId());
 
-                    user.setUserOrders(OrderFacade.getOrdersByUserId(ID,connectionPool));
+                    user.setAllOrders(OrderFacade.getOrdersByUserId(userId,connectionPool));
                 } else {
                     throw new DatabaseException("Wrong email or password");
                 }
