@@ -30,6 +30,10 @@ public class Order {
         return totalPrice;
     }
 
+    public int getUserID(){
+        return userID;
+    }
+
     public int getOrderID() {
         return orderID;
     }

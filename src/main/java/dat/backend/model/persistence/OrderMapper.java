@@ -1,9 +1,6 @@
 package dat.backend.model.persistence;
 
-import dat.backend.model.entities.Cupcake;
-import dat.backend.model.entities.CupcakeBase;
-import dat.backend.model.entities.CupcakeTopping;
-import dat.backend.model.entities.Order;
+import dat.backend.model.entities.*;
 import dat.backend.model.exceptions.DatabaseException;
 
 import java.sql.*;
@@ -90,13 +87,17 @@ class OrderMapper {
         try(Connection connection = connectionPool.getConnection()){
             try(PreparedStatement ps = connection.prepareStatement(sqlOrder)){
                 ps.setInt(1, userId);
-                cupcakes = getCupcakesForOrder(id, connection);
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()){
                     id = rs.getInt("orderId");
                     isPaid = rs.getBoolean("isPaid");
                     isOrdered = rs.getBoolean("isOrdered");
-                    orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
+                    cupcakes = getCupcakesForOrder(id, connection);
+                    if(isOrdered) {
+                        orders.add(new Order(id, userId, cupcakes, isOrdered, isPaid));
+                    } else {
+                        orders.add(new ShoppingBasket(id, userId, cupcakes, isOrdered, isPaid));
+                    }
                 }
             } catch(SQLException e){
                 e.printStackTrace();
@@ -122,6 +123,40 @@ class OrderMapper {
             e.printStackTrace();
         }
         return cupcakes;
+    }
+
+    public static void deleteOrder(int orderID, ConnectionPool connectionPool) throws DatabaseException{
+        String sqlOrder = "DELETE FROM cupcake.order WHERE orderId = ?";
+        String sqlCupcake = "DELETE FROM cupcake.cupcake WHERE orderId = ?";
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sqlOrder)){
+                ps.setInt(1, orderID);
+                try(PreparedStatement ps1 = connection.prepareStatement(sqlCupcake)){
+                    ps1.setInt(1, orderID);
+                    ps1.execute();
+                }
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to delete order in database.");
+        }
+    }
+
+    public static void updateOrderPaid(int orderID, boolean paid, ConnectionPool connectionPool) throws DatabaseException{
+        String sql = "UPDATE cupcake.order SET order.isPaid = ? WHERE orderId = ?";
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                if(paid){
+                    ps.setBoolean(1, true);
+                } else {
+                    ps.setBoolean(1, false);
+                }
+                ps.setInt(2, orderID);
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to update paid in database");
+        }
     }
 }
 
