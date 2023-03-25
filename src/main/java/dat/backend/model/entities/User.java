@@ -44,6 +44,18 @@ public class User
         return userId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public float getBalance() {
+        return balance;
+    }
+
+    public List<Order> getAllOrders() {
+        return allOrders;
+    }
+
     public String getEmail()
     {
         return email;
