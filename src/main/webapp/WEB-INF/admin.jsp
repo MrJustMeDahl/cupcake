@@ -37,11 +37,11 @@
                                     Alle brugere
                                 </c:when>
                                 <c:otherwise>
-                                        <button type="submit" name="chosenuser" value="${sessionScope.chosenCustomer}"
-                                                class="btn btn-sm - btn-outline-success" formaction="giveusermoney"
-                                                formmethod="post">Giv kunde kredit
-                                        </button>
-                                        <input type="number" name="credit" placeholder="Indtast beløb"/>
+                                    <button type="submit" name="chosenuser" value="${sessionScope.chosenCustomer}"
+                                            class="btn btn-sm - btn-outline-success" formaction="giveusermoney"
+                                            formmethod="post">Giv kunde kredit
+                                    </button>
+                                    <input type="number" name="credit" placeholder="Indtast beløb"/>
                                     <c:forEach var="user" items="${requestScope.alluserslist}">
                                         <c:if test="${user.userId == sessionScope.chosenCustomer}">
                                             Valgt bruger: ${user.name}
@@ -87,17 +87,19 @@
                                                 <td>
                                                         ${order.paid}
                                                 </td>
-                                                <td>
-                                                    <c:choose>
-                                                        <c:when test="${requestScope.chosenOrder != order.orderID}">
+                                                <c:choose>
+                                                    <c:when test="${requestScope.chosenOrder != order.orderID}">
+                                                        <td>
                                                             <button type="submit" class="btn btn-outline-primary btn-sm"
                                                                     value="${order.orderID}"
                                                                     name="orderid" , formaction="admin"
                                                                     formmethod="get">
                                                                 Åben ordre
                                                             </button>
-                                                        </c:when>
-                                                        <c:otherwise>
+                                                        </td>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <td>
                                                             <button type="submit" class="btn btn-outline-success btn-sm"
                                                                     formaction="adminupdatepaid" formmethod="post"
                                                                     name="orderid"
@@ -110,10 +112,28 @@
                                                                     value="${order.orderID}">
                                                                 Slet ordre
                                                             </button>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
+                                                        </td>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </tr>
+                                            <c:if test="${requestScope.chosenOrder == order.orderID}">
+                                                <tr class="fw-bold">
+                                                    <td>Bund:</td>
+                                                    <td>Topping:</td>
+                                                    <td>Pris pr. stk.:</td>
+                                                    <td>Antal:</td>
+                                                </tr>
+                                                <c:forEach var="cupcake"
+                                                           items="${requestScope.chosenOrderCupcakes}">
+                                                    <tr>
+                                                        <td>${cupcake.base.flavor}</td>
+                                                        <td>${cupcake.topping.flavor}</td>
+                                                        <td>${cupcake.fullPrice}</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                <tr></tr>
+                                            </c:if>
                                         </c:if>
                                     </c:forEach>
                                 </form>
@@ -178,6 +198,24 @@
                                                     </c:choose>
                                                 </td>
                                             </tr>
+                                            <c:if test="${requestScope.chosenOrder == order.orderID}">
+                                                <tr class="fw-bold">
+                                                    <td>Bund:</td>
+                                                    <td>Topping:</td>
+                                                    <td>Pris pr. stk.:</td>
+                                                    <td>Antal:</td>
+                                                </tr>
+                                                <c:forEach var="cupcake"
+                                                           items="${requestScope.chosenOrderCupcakes}">
+                                                    <tr>
+                                                        <td>${cupcake.base.flavor}</td>
+                                                        <td>${cupcake.topping.flavor}</td>
+                                                        <td>${cupcake.fullPrice}</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                <tr></tr>
+                                            </c:if>
                                         </c:if>
                                     </c:forEach>
                                 </form>
@@ -245,6 +283,24 @@
                                                     </c:choose>
                                                 </td>
                                             </tr>
+                                            <c:if test="${requestScope.chosenOrder == order.orderID}">
+                                                <tr class="fw-bold">
+                                                    <td>Bund:</td>
+                                                    <td>Topping:</td>
+                                                    <td>Pris pr. stk.:</td>
+                                                    <td>Antal:</td>
+                                                </tr>
+                                                <c:forEach var="cupcake"
+                                                           items="${requestScope.chosenOrderCupcakes}">
+                                                    <tr>
+                                                        <td>${cupcake.base.flavor}</td>
+                                                        <td>${cupcake.topping.flavor}</td>
+                                                        <td>${cupcake.fullPrice}</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                <tr></tr>
+                                            </c:if>
                                         </c:if>
                                     </c:forEach>
                                 </form>
@@ -309,6 +365,24 @@
                                                     </c:choose>
                                                 </td>
                                             </tr>
+                                            <c:if test="${requestScope.chosenOrder == order.orderID}">
+                                                <tr class="fw-bold">
+                                                    <td>Bund:</td>
+                                                    <td>Topping:</td>
+                                                    <td>Pris pr. stk.:</td>
+                                                    <td>Antal:</td>
+                                                </tr>
+                                                <c:forEach var="cupcake"
+                                                           items="${requestScope.chosenOrderCupcakes}">
+                                                    <tr>
+                                                        <td>${cupcake.base.flavor}</td>
+                                                        <td>${cupcake.topping.flavor}</td>
+                                                        <td>${cupcake.fullPrice}</td>
+                                                        <td>1</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                <tr></tr>
+                                            </c:if>
                                         </c:if>
                                     </c:forEach>
                                 </form>
