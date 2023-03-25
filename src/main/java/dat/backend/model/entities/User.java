@@ -1,12 +1,5 @@
 package dat.backend.model.entities;
 
-import dat.backend.model.exceptions.DatabaseException;
-import dat.backend.model.persistence.ConnectionPool;
-import dat.backend.model.persistence.OrderFacade;
-import dat.backend.model.persistence.UserFacade;
-
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,18 +8,20 @@ public class User
     private int userId;
     private String email;
     private String password;
-    private String role = "user";
+    private String role;
     private String name;
-    private float balance = 0;
-    List<Order> userOrders = new ArrayList<>();
+    private float balance;
+    private List<Order> allOrders;
 
-    public User(String name, String email, String password, float balance, String role)
+    public User(int userId, String name, String email, String password, float balance, String role, List<Order> allOrders)
     {
+        this.userId = userId;
         this.email = email;
         this.password = password;
         this.role = role;
         this.name = name;
         this.balance = balance;
+        this.allOrders = allOrders;
     }
     public User(String name, String email, String password)
     {
@@ -37,21 +32,20 @@ public class User
         this.balance = 0;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public String getName(){
+        return name;
     }
 
+    public float getBalance(){
+        return balance;
+    }
 
-    public int getUserId() {
+    public int getUserId(){
         return userId;
     }
 
-    public void setUserOrders(List<Order> userOrders) {
-        this.userOrders = userOrders;
-    }
-
-    public List<Order> getUserOrders() {
-        return userOrders;
+    public List<Order> getAllOrders() {
+        return allOrders;
     }
 
     public String getEmail()

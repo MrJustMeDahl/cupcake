@@ -10,7 +10,7 @@ import java.util.List;
     public class CupcakeToppingFacade {
 
 
-        public static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool){
+        public static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool) throws DatabaseException{
             return CupcakeToppingMapper.getAllToppings(connectionPool);
         }
 
@@ -18,11 +18,11 @@ import java.util.List;
             CupcakeToppingMapper.addToppingFlavor(flavor, price, connectionPool);
         }
 
-        public static void editTopping (int cupcaketoppingId, String name, float price, ConnectionPool connectionPool){
+        public static void editTopping (int cupcaketoppingId, String name, float price, ConnectionPool connectionPool) throws DatabaseException{
             CupcakeToppingMapper.editTopping(cupcaketoppingId, name, price, connectionPool);
         }
 
-        public static void deleteTopping (int cupcaketoppingId, ConnectionPool connectionPool){
+        public static void deleteTopping (int cupcaketoppingId, ConnectionPool connectionPool) throws DatabaseException{
             CupcakeToppingMapper.deleteTopping(cupcaketoppingId, connectionPool);
         }
 
