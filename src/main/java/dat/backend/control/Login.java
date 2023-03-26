@@ -48,15 +48,12 @@ public class Login extends HttpServlet
         {
             User user = UserFacade.login(username, password, connectionPool);
             session = request.getSession();
-            List<CupcakeBase> cupcakebaseList = CupcakeBaseFacade.getAllBases(connectionPool);
-            List<CupcakeTopping> cupcaketoppingList = CupcakeToppingFacade.getAllToppings(connectionPool);
-            request.setAttribute("cupcakebase", cupcakebaseList);
-            request.setAttribute("cupcaketopping", cupcaketoppingList);
+
             session.setAttribute("user", user); // adding user object to session scope
             if(user.getRole().equals("admin")){
                 response.sendRedirect("admin");
             } else {
-                request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+                response.sendRedirect("welcome");
             }
         }
         catch (DatabaseException e)
