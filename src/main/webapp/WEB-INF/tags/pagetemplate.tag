@@ -82,7 +82,7 @@
         <div class="col">
             <jsp:invoke fragment="footer"/>
             <br/>
-            <p><a href="aboutus">Om os</a></p>
+            <p><a href="aboutus.jsp">Om os</a></p>
         </div>
         <div class="col">
             Datamatikeruddannelsen<br/>
