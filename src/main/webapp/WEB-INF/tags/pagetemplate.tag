@@ -22,18 +22,18 @@
 <header>
     <img src="${pageContext.request.contextPath}/images/cupcakeheader.png" width="70%;" class="mx-auto d-block"/>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-3 col-lg-2  d-inline">
+        <div class="container justify-content-center d-block">
+            <div class="row">
+                <div class="col-3 col-md-2 col-lg-1  d-inline">
                     <a class="navbar-brand" href="index.jsp">
                         <img src="${pageContext.request.contextPath}/images/Olskerbagerilogo.png"
                              class="img-fluid"/>
                     </a>
                 </div>
-                <div class="d-inline col-5">
-                    <h1 class="text-center">Olsker Bageri</h1>
+                <div class="d-inline col">
+                    <h1 class="text-center navbar-text">Olsker Bageri</h1>
                 </div>
-                <div class="col-4">
+                <div class="d-inline col-4">
                     <button class="navbar-toggler float-right" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNavAltMarkup"
                             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,11 @@
                             <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
                             <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
                             <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
+                            <c:if test="${sessionScope.user != null }">
+                                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/indkøbskurv">Indkøbskurv</a>
+                            </c:if>
+
+
                             <c:if test="${sessionScope.user == null }">
                                 <a class="nav-item nav-link"
                                    href="${pageContext.request.contextPath}/login.jsp">Login</a>

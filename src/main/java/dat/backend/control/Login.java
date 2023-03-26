@@ -53,7 +53,11 @@ public class Login extends HttpServlet
             request.setAttribute("cupcakebase", cupcakebaseList);
             request.setAttribute("cupcaketopping", cupcaketoppingList);
             session.setAttribute("user", user); // adding user object to session scope
-            request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+            if(user.getRole().equals("admin")){
+                response.sendRedirect("admin");
+            } else {
+                request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+            }
         }
         catch (DatabaseException e)
         {

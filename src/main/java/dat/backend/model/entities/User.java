@@ -32,16 +32,24 @@ public class User
         this.balance = 0;
     }
 
-    public int getUserId(){
-        return userId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
+    public void setAllOrders(List<Order> allOrders) {
+        this.allOrders = allOrders;
+    }
+
+    public String getName(){
         return name;
     }
 
-    public float getBalance() {
+    public float getBalance(){
         return balance;
+    }
+
+    public int getUserId(){
+        return userId;
     }
 
     public List<Order> getAllOrders() {

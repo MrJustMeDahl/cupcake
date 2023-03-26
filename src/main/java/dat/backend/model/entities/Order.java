@@ -30,6 +30,10 @@ public class Order {
         return totalPrice;
     }
 
+    public int getUserID(){
+        return userID;
+    }
+
     public int getOrderID() {
         return orderID;
     }
@@ -41,6 +45,7 @@ public class Order {
     public float getTotalPrice() {
         return totalPrice;
     }
+
 
     public boolean getOrdered() {
         return ordered;

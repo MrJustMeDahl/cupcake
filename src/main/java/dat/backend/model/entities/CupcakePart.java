@@ -17,4 +17,9 @@ public abstract class CupcakePart {
     public float getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return flavor;
+    }
 }

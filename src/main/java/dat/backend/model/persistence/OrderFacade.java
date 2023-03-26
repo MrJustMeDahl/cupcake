@@ -13,7 +13,7 @@ public class OrderFacade {
         return OrderMapper.createOrder(cupcake, userId, connectionPool);
     }
 
-    public static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool){
+    public static Order getOrderByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException{
         return OrderMapper.getOrderByOrderId(orderId, connectionPool);
     }
 
@@ -21,6 +21,13 @@ public class OrderFacade {
         return OrderMapper.getOrdersByUserId(userId, connectionPool);
     }
 
+    public static void deleteOrder(int orderID, ConnectionPool connectionPool) throws DatabaseException{
+        OrderMapper.deleteOrder(orderID, connectionPool);
+    }
+
+    public static void updateOrderPaid(int orderID, boolean paid, ConnectionPool connectionPool) throws DatabaseException{
+        OrderMapper.updateOrderPaid(orderID, paid, connectionPool);
+    }
     public  static void insertCupcakeForOrder(int orderId, Cupcake cupcake, ConnectionPool connectionpool) throws DatabaseException{
         OrderMapper.insertCupcakeForOrder(orderId, cupcake, connectionpool);
     }
