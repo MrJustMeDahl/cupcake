@@ -41,10 +41,9 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 1</a>
-                            <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 2</a>
-                            <a class="nav-item nav-link" href="${pageContext.request.contextPath}/">Page 3</a>
+
                             <c:if test="${sessionScope.user != null }">
+                                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/welcome">Menu</a>
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/indkøbskurv">Indkøbskurv</a>
                             </c:if>
 

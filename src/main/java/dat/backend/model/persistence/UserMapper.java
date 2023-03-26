@@ -120,7 +120,7 @@ public class UserMapper {
         }
     }
 
-    private static User getUserByID(int userID, ConnectionPool connectionPool) throws DatabaseException{
+    public static User getUserByID(int userID, ConnectionPool connectionPool) throws DatabaseException{
         String sql = "SELECT * FROM cupcake.user WHERE userId = ?";
         User user = null;
         try(Connection connection = connectionPool.getConnection()){

@@ -58,17 +58,17 @@
                            choose how many cupcakes you want
                         ********************************************--%>
                     <td>
-                        <input id="number" classs="d-inline form-control w-10" type="number" name="quantity"
+                        <input id="number" classs="d-inline form-control w-10" type="number" name="number"
                                placeholder="quantity" min="1"/>
                     </td>
                         <%--********************************************
                     press the button to add to basket or link to go to checkout
                         ********************************************--%>
                     <td>
-                        <button formaction="AddCupcakeToOrder" class="btn btn-outline-dark" name="cupcakeId"
-                                value="${cupcake.cupcakeId}">Add
+                        <button
+                                formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Add
                         </button> <br/>
-                        <a href="shoppingbasket.jsp">Shoppingbasket</a>
+                        <a href="indkøbskurv">Shoppingbasket</a>
 
                     </td>
                 </form>

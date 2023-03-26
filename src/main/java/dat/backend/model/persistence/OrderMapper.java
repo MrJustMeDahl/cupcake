@@ -10,13 +10,14 @@ import java.util.List;
 class OrderMapper {
 
     static Order createOrder(Cupcake cupcake, int userId, ConnectionPool connectionPool) throws DatabaseException {
-        String sqlOrder = "INSERT INTO cupcake.order (price, user_id) VALUES (?, ?)";
+        String sqlOrder = "INSERT INTO cupcake.order (price, userId) VALUES (?, ?)";
         int orderId;
+        float fullPrice = cupcake.getFullPrice();
         List<Cupcake> cupcakes = new ArrayList<>();
         cupcakes.add(cupcake);
         try (Connection connection = connectionPool.getConnection()) {
             try (PreparedStatement ps = connection.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setFloat(1, cupcake.getFullPrice());
+                ps.setFloat(1, fullPrice);
                 ps.setInt(2, userId);
                 ps.executeUpdate();
                 ResultSet generatedKeys = ps.getGeneratedKeys();

@@ -27,75 +27,64 @@ public class AddCupcakeToOrder extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        for (Order o : user.getAllOrders()) {
-            if (!o.getOrdered()) {
-
-                int cupcakebaseId = Integer.parseInt(request.getParameter("cupcakebase"));
-                int cupcaketoppingId = Integer.parseInt(request.getParameter("cupcaketopping"));
-                int quantity = Integer.parseInt(request.getParameter("number"));
-                int orderId = o.getOrderID();
-                Cupcake cupcake = null;
-
-                try {
-                    cupcake = new Cupcake(CupcakeToppingFacade.getOneToppings(cupcaketoppingId, connectionPool), CupcakeBaseFacade.getOneBase(cupcakebaseId, connectionPool));
-                }
-                catch(DatabaseException e){
-                    request.setAttribute("errormessage", e);
-                request.getRequestDispatcher("/error.jsp");
-                }
-
-
-                for (int i = 0; i < quantity; i++) {
-                    try {
-                        OrderFacade.insertCupcakeForOrder(orderId, cupcake, connectionPool);
-                    }
-                    catch(DatabaseException e){
-                        request.setAttribute("errormessage", e);
-                        request.getRequestDispatcher("/error.jsp");
-                    }
-                }
-                try {
-                    List<CupcakeBase> cupcakebaseList = CupcakeBaseFacade.getAllBases(connectionPool);
-                    List<CupcakeTopping> cupcaketoppingList = CupcakeToppingFacade.getAllToppings(connectionPool);
-                    request.setAttribute("cupcakebase", cupcakebaseList);
-                    request.setAttribute("cupcaketopping", cupcaketoppingList);
-                }catch(DatabaseException e){
-                    request.setAttribute("errormessage", e);
-                    request.getRequestDispatcher("/error.jsp");
-                }
-                request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
-            }
-
-        }
-        //  response.setContentType("text/html");
-        List<Cupcake> cupcakes = new ArrayList<>();
-
-
+        Cupcake cupcake = null;
         int cupcakebaseId = Integer.parseInt(request.getParameter("cupcakebase"));
         int cupcaketoppingId = Integer.parseInt(request.getParameter("cupcaketopping"));
         int quantity = Integer.parseInt(request.getParameter("number"));
-
-        // CupcakeBase cupcakebase = CupcakeBaseMapper.getOneBase(connectionPool);
-        // CupcakeTopping cupcakeTopping = CupcakeToppingMapper.getOneTopping(connectionPool);
-
-        Cupcake newCupcake = new Cupcake(cupcakeTopping, cupcakebase);
-
-
-        for (int i = 0; i < quantity; i++) {
-            cupcakes.add(newCupcake);
-            String sql = "INSERT INTO cupcake (baseId, toppingId) VALUES (?,?)";
+        boolean customerHasActiveOrder = false;
+        int activeOrderId = 0;
+        try {
+            cupcake = new Cupcake(CupcakeToppingFacade.getOneToppings(cupcaketoppingId, connectionPool), CupcakeBaseFacade.getOneBase(cupcakebaseId, connectionPool));
+        } catch (DatabaseException e) {
+            request.setAttribute("errormessage", e);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
         }
 
 
-        ShoppingBasket shoppingBasket = new ShoppingBasket(orderId, userId, cupcakes, false, false);
-        request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+        for (Order o : user.getAllOrders()) {
+            if (!o.getOrdered()) {
+                activeOrderId = o.getOrderID();
+                customerHasActiveOrder = true;
+            }
+        }
+        if (customerHasActiveOrder) {
+            for (int i = 0; i < quantity; i++) {
+                try {
+                    OrderFacade.insertCupcakeForOrder(activeOrderId, cupcake, connectionPool);
+                } catch (DatabaseException e) {
+                    request.setAttribute("errormessage", e);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+            }
 
+            response.sendRedirect("welcome");
+        } else {
+            Order newOrder = null;
+            try {
+                newOrder = OrderFacade.createOrder(user.getUserId(), cupcake, connectionPool);
+                user.getAllOrders().add(newOrder);
+            } catch (DatabaseException e) {
+                request.setAttribute("errormessage", e);
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+
+            for (int i = 0; i < quantity - 1; i++) {
+                try {
+
+                    OrderFacade.insertCupcakeForOrder(newOrder.getOrderID(), cupcake, connectionPool);
+                } catch (DatabaseException e) {
+                    request.setAttribute("errormessage", e);
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                }
+            }
+
+            response.sendRedirect("welcome");
+        }
     }
 }
