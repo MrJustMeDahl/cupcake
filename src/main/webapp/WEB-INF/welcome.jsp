@@ -49,8 +49,7 @@
                     <td>
                         <Select name="cupcaketopping" id="topping">
                             <c:forEach items="${requestScope.cupcaketopping}" var="cupcaketopping">
-                                <option value="${cupcaketopping.toppingID}"> ${cupcaketopping.flavor}
-                                    - ${cupcaketopping.price}kr
+                                <option value="${cupcaketopping.toppingID}"> ${cupcaketopping.flavor} - ${cupcaketopping.price}kr
                                 </option>
                             </c:forEach>
                         </select>
