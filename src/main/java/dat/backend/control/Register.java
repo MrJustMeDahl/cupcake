@@ -50,7 +50,7 @@ public class Register extends HttpServlet
             User user = UserFacade.createUser(name, email, password, 0,role, connectionPool);
             session = request.getSession();
             session.setAttribute("user", user); // adding user object to session scope
-            request.getRequestDispatcher("WEB-INF/welcome.jsp").forward(request, response);
+            response.sendRedirect("welcome");
         }
         catch (DatabaseException e)
         {
