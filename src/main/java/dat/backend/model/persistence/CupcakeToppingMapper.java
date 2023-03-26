@@ -41,6 +41,31 @@ public class CupcakeToppingMapper {
 
     }
 
+    public static CupcakeTopping getOneTopping(int toppingId, ConnectionPool connectionPool) throws DatabaseException {
+        String sql = "SELECT * FROM cupcaketopping WHERE cupcaketoppingId = ?";
+
+        String flavor;
+        float price;
+
+        try (Connection connection = connectionPool.getConnection()) {
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, toppingId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    flavor = rs.getString("flavor");
+                    price = rs.getFloat("price");
+                    return new CupcakeTopping(flavor, price, toppingId);
+
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new DatabaseException (e, "can't get topping from database");
+
+        }
+        return null;
+    }
+
     public static void addToppingFlavor(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException{
         Logger.getLogger("web").log(Level.INFO,"");
         CupcakeTopping cupcakeTopping;

@@ -62,12 +62,13 @@
                                placeholder="quantity" min="1"/>
                     </td>
                         <%--********************************************
-                           press the button to add to basket
+                    press the button to add to basket or link to go to checkout
                         ********************************************--%>
                     <td>
                         <button formaction="AddCupcakeToOrder" class="btn btn-outline-dark" name="cupcakeId"
                                 value="${cupcake.cupcakeId}">Add
-                        </button>
+                        </button> <br/>
+                        <a href="shoppingbasket.jsp">Shoppingbasket</a>
 
                     </td>
                 </form>

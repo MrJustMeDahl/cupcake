@@ -14,6 +14,10 @@ public class CupcakeBaseFacade {
         return CupcakeBaseMapper.getAllBases(connectionPool);
     }
 
+    public static CupcakeBase getOneBase (int baseId, ConnectionPool connectionPool) throws DatabaseException{
+        return CupcakeBaseMapper.getOneBase(baseId, connectionPool);
+    }
+
     public static void addBaseflavor(String flavor, float price, ConnectionPool connectionPool)throws DatabaseException {
         CupcakeBaseMapper.addFlavor(flavor, price, connectionPool);
     }

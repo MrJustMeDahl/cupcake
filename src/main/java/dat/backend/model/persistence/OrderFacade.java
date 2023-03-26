@@ -21,4 +21,8 @@ public class OrderFacade {
         return OrderMapper.getOrdersByUserId(userId, connectionPool);
     }
 
+    public  static void insertCupcakeForOrder(int orderId, Cupcake cupcake, ConnectionPool connectionpool) throws DatabaseException{
+        OrderMapper.insertCupcakeForOrder(orderId, cupcake, connectionpool);
+    }
+
 }

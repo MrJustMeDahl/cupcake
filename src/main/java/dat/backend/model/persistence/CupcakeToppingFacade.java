@@ -14,6 +14,10 @@ import java.util.List;
             return CupcakeToppingMapper.getAllToppings(connectionPool);
         }
 
+        public static CupcakeTopping getOneToppings(int toppingId, ConnectionPool connectionPool) throws DatabaseException{
+            return CupcakeToppingMapper.getOneTopping(toppingId, connectionPool);
+        }
+
         public static void addToppingflavor(String flavor, float price, ConnectionPool connectionPool)throws DatabaseException {
             CupcakeToppingMapper.addToppingFlavor(flavor, price, connectionPool);
         }
