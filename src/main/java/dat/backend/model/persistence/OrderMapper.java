@@ -163,7 +163,22 @@ class OrderMapper {
             throw new DatabaseException(ex, "Error creating order. Something went wrong with the database");
         }
 
-
+    }
+    public static void updateOrderOrdered(int orderID, boolean ordered, ConnectionPool connectionPool) throws DatabaseException{
+        String sql = "UPDATE cupcake.order SET order.isOrdered = ? WHERE orderId = ?";
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                if(ordered){
+                    ps.setBoolean(1, true);
+                } else {
+                    ps.setBoolean(1, false);
+                }
+                ps.setInt(2, orderID);
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to update paid in database");
+        }
     }
 }
 

@@ -68,7 +68,7 @@
                         <button
                                 formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Add
                         </button> <br/>
-                        <a href="indkøbskurv">Shoppingbasket</a>
+                        <a href="shoppingbasket">Shoppingbasket</a>
 
                     </td>
                 </form>

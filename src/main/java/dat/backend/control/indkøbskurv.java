@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "indkøbskurv", urlPatterns = {"/indkøbskurv"} )
+@WebServlet(name = "indkøbskurv", urlPatterns = {"/shoppingbasket"} )
 public class indkøbskurv extends HttpServlet
 {
     private ConnectionPool connectionPool;
@@ -37,14 +37,17 @@ public class indkøbskurv extends HttpServlet
 
             List<Order> orderList = OrderFacade.getOrdersByUserId(user.getUserId(), connectionPool);
 
-            session.setAttribute("orderlist", orderList);
+            request.setAttribute("orderlist", orderList);
             for (Order o: orderList) {
                 if(!o.getOrdered()){
-                    session.setAttribute("order", o);
+
+                    request.setAttribute("order", o);
+
                 }
             }
 
-            response.sendRedirect("shoppingcart.jsp");
+            request.getRequestDispatcher("shoppingcart.jsp").forward(request, response);
+
         } catch (DatabaseException e) {
             e.printStackTrace();
         }

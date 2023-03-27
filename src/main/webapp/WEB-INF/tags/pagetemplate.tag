@@ -44,7 +44,7 @@
 
                             <c:if test="${sessionScope.user != null }">
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/welcome">Menu</a>
-                                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/indkøbskurv">Indkøbskurv</a>
+                                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/shoppingbasket">Indkøbskurv</a>
                             </c:if>
 
 
