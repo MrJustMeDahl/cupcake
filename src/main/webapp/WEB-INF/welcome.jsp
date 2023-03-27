@@ -22,7 +22,7 @@
         <table class="align-center mt-5">
             <thead>
             <tr>
-                <th>Base</th>
+                <th>Bund</th>
                 <th>Topping</th>
                 <th>Antal</th>
                 <th>Tilføj</th>
