@@ -5,16 +5,6 @@ import java.util.List;
 
 public class ShoppingBasket extends Order{
 
-    ArrayList<Cupcake> itemsInBasket = new ArrayList<>();
-
-    public ArrayList<Cupcake> getItemsInBasket() {
-        return itemsInBasket;
-    }
-
-    public void addItemToBasket (Cupcake cupcake){
-        itemsInBasket.add(cupcake);
-    }
-
     public ShoppingBasket(int orderID, int userID, List<Cupcake> cupcakes, boolean ordered, boolean paid){
         super(orderID, userID, cupcakes, ordered, paid);
     }
