@@ -38,6 +38,12 @@ public class indkøbskurv extends HttpServlet
             List<Order> orderList = OrderFacade.getOrdersByUserId(user.getUserId(), connectionPool);
 
             session.setAttribute("orderlist", orderList);
+            for (Order o: orderList) {
+                if(!o.getOrdered()){
+                    session.setAttribute("order", o);
+                }
+            }
+
             response.sendRedirect("shoppingcart.jsp");
         } catch (DatabaseException e) {
             e.printStackTrace();
