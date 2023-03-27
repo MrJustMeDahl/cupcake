@@ -29,10 +29,7 @@ public class UserMapper {
                     int userId = rs.getInt("userId");
                     float balance = Float.parseFloat(rs.getString("balance"));
                     user = new User(userId, name, email, password, balance, role, OrderFacade.getOrdersByUserId(userId, connectionPool));
-                    user.setUserId(userId);
-                    System.out.println("USERID ER NU: " + user.getUserId());
 
-                    user.setAllOrders(OrderFacade.getOrdersByUserId(userId,connectionPool));
                 } else {
                     throw new DatabaseException("Wrong email or password");
                 }
