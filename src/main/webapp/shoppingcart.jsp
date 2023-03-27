@@ -23,27 +23,32 @@
         <p>Her er din indkøbskurv</p>
 
 
-        <table>
-            <c:forEach var="order" items="${sessionScope.orderlist}">
-                <c:if test="${order.ordered == false && sessionScope.user.userId == order.userID}">
+        <table class="table">
+            <thead>
+            <th>Cupcakebund</th>
+            <th>Cupcaketop</th>
+            <th>Samlet pris: ${sessionScope.order.totalPrice} kr</th>
+            </thead>
+
+                    <c:forEach var="cupcake" items="${order.cupcakes}">
                 <tr>
 
-                    <td>${order.cupcakes}</td>
+                        <td> Cupcakebund: ${cupcake.base}</td>
+                        <td> Cupcaketop: ${cupcake.topping}</td>
+                        <td>pris: ${cupcake.fullPrice} kr</td>
 
-                    <td>pris: ${order.totalPrice}</td>
+                        <%--<td>betalt: ${order.paid}</td> --%>
+                        <%-- <td>orderId: ${order.orderID}</td> --%>
+                        <%-- <td>bestilt: ${order.ordered}</td> --%>
 
-                    <td>betalt: ${order.paid}</td>
+                    
 
-                    <td>orderId: ${order.orderID}</td>
+                     </tr>
+                         </c:forEach>
 
-                    <td>bestilt: ${order.ordered}</td>
 
+             </table>
 
-                </tr>
-                </c:if>
-            </c:forEach>
-        </table>
+         </jsp:body>
 
-    </jsp:body>
-
-</t:pagetemplate>
+     </t:pagetemplate>
