@@ -66,7 +66,7 @@ public class CupcakeToppingMapper {
         return null;
     }
 
-    public static void addToppingFlavor(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException{
+    public static void addTopping(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException{
         Logger.getLogger("web").log(Level.INFO,"");
         CupcakeTopping cupcakeTopping;
         String sql = "INSERT INTO cupcaketopping (flavor, price) VALUES (?,?)";

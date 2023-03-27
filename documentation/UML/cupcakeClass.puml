@@ -11,41 +11,46 @@ class Cupcake{
 + CupcakeBase getCupcakeBase()
 }
 
-class CupcakeTopping{
-- int cupcaketoppingeId
+abstract class CupcakePart{
 - String flavor
 - float price
-+ CupcakeTopping(int cupcaketoppingeId, String flavor, float price)
++ CupcakePart(String flavor, float price)
 + float getPrice()
 + String getFlavor()
 }
 
+
+class CupcakeTopping{
+- int cupcaketoppingId
++ CupcakeTopping(int cupcaketoppingeId, String flavor, float price)
+}
+
 class CupcakeBase{
 - int cupcakebaseId
-- String flavor
-- float price
 + CupcakeBase(int cupcakebaseId, String flavor, float price)
-+ float getPrice()
-+ String getFlavor()
 }
 
 class User{
 - int userID
 - String name
-- String eMail
+- String email
+- String password
 - Role role
 - float balance
-+ User(int userID, String name, String eMail, Role role, float balance)
+- List<Order> allOrders
++ User(int userID, String name, String email, String password, float balance, Role role, List<Order> allOrders)
++ User(String name, String email, String password)
 + int getUserID()
 + String getName()
 + String getEMail()
 + Role getRole()
 + float getBalance()
 + boolean setBalance()
++ List<Order> getAllOrders()
 }
 
 class ShoppingBasket{
-+ ShoppingBasket(List<Cupcake> cupcakes)
++ ShoppingBasket(Super())
 + boolean addCupcake()
 + boolean removeCupcake()
 }
@@ -56,8 +61,7 @@ class Order{
 - float totalPrice
 - boolean ordered
 - boolean paid
-- TimeStamp timestamp
-+ Order(Super, int orderID, TimeStamp timestamp)
++ Order(int orderID, int userID, List<Cupcake> cupcakes, boolean ordered, boolean paid)
 + List<Cupcake> getCupcakes()
 + float getTotalPrice()
 + boolean getOrdered()
@@ -68,67 +72,91 @@ class Order{
 
 static class PaymentMapper{
 <<static>>
-- ConnectionPool connectionpool
 }
 
 static class PaymentFacade{
 <<static>>
-- ConnectionPool connectionpool
+
 }
 
 class UserMapper{
 <<static>>
-- ConnectionPool connectionpool
++ User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
++ User createUser(String name, String email, String password, ConnectionPool connectionPool) throws DatabaseException
++ List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
++ void updateBalance(float amount, int userID, ConnectionPool connectionPool) throws DatabaseException
++ User getUserByID(int userID, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class UserFacade{
 <<static>>
-- ConnectionPool connectionpool
++ User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
++ User createUser(String name, String email, String password, ConnectionPool connectionPool) throws DatabaseException
++ List<User> getAllUsers(ConnectionPool connectionPool) throws DatabaseException
++ void updateBalance(float amount, int userID, ConnectionPool connectionPool) throws DatabaseException
++ User getUserByID(int userID, ConnectionPool connectionPool) throws DatabaseException
+
 }
 
 class CupcakeBaseMapper{
 <<static>>
-- ConnectionPool connectionpool
-+ static List<CupcakeBase> getAllBases(ConnectionPool connectionpool)
-+ static void addBaseFlavor(String flavor, float price, ConnectionPool connectionPool)
-+ static void deleteBase(int cupcakebaseId, ConnectionPool connectionPool)
-+ static void editbase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool)
+
++ List<CupcakeBase> getAllBases(ConnectionPool connectionpool) throws DatabaseException
++ CupcakeBase getOneBase(int baseId, ConnectionPool connectionPool) throws DatabaseException
++ void addFlavor(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
++ void deleteBase(int cupcakebaseId, ConnectionPool connectionPool) throws DatabaseException
++ void editbase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
 }
 class CupcakeToppingMapper{
 <<static>>
-- ConnectionPool connectionpool
-+ static List<CupcakeTopping> getAllToppings(ConnectionPool connectionpool)
-+ static void addToppingFlavor(String flavor, float price, ConnectionPool connectionPool)
-+ static void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool)
-+ static void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool)
+
++ List<CupcakeTopping> getAllToppings(ConnectionPool connectionpool) throws DatabaseException
++ CupcakeTopping getOneTopping(int toppingId, ConnectionPool connectionPool) throws DatabaseException
++ void addTopping(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
++ void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool) throws DatabaseException
++ void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class CupcakeBaseFacade{
 <<static>>
-- ConnectionPool connectionpool
-+ static List<CupcakeBase> getAllBases(ConnectionPool connectionPool)
-+ static void addBaseflavor(String flavor, float price, ConnectionPool connectionPool)
-+ static void editBase (int cupcakebaseId, String name, float price, ConnectionPool connectionPool)
-+ static void deleteBase (int cupcakebaseId, ConnectionPool connectionPool)
+
++ List<CupcakeBase> getAllBases(ConnectionPool connectionpool) throws DatabaseException
++ CupcakeBase getOneBase(int baseId, ConnectionPool connectionPool) throws DatabaseException
++ void addFlavor(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
++ void deleteBase(int cupcakebaseId, ConnectionPool connectionPool) throws DatabaseException
++ void editbase(int cupcakebaseId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class CupcakeToppingFacade{
 <<static>>
-- ConnectionPool connectionpool
-+ static List<CupcakeTopping> getAllToppings(ConnectionPool connectionPool)
-+ static void addToppingflavor(String flavor, float price, ConnectionPool connectionPool)
-+ static void editTopping (int cupcaketoppingId, String name, float price, ConnectionPool connectionPool)
-+ static void deleteTopping (int cupcaketoppingId, ConnectionPool connectionPool)
+
++ List<CupcakeTopping> getAllToppings(ConnectionPool connectionpool) throws DatabaseException
++ CupcakeTopping getOneTopping(int toppingId, ConnectionPool connectionPool) throws DatabaseException
++ void addTopping(String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
++ void deleteTopping(int cupcaketoppingId, ConnectionPool connectionPool) throws DatabaseException
++ void editTopping(int cupcaketoppingId, String flavor, float price, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class OrderMapper{
 <<static>>
-- ConnectionPool connectionpool
++ Order createOrder(Cupcake cupcake, int userId, ConnectionPool connectionPool) throws DatabaseException
++ Order getOrderByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ List<Order> getOrderByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException
++ List<Cupcake> getCupcakesForOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ void deleteOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ void updateOrderPaid(int orderId, boolean paid, ConnectionPool connectionPool) throws DatabaseException
++ void insertCupcakeForOrder(int orderId, Cupcake cupcake, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class OrderFacade{
 <<static>>
-- ConnectionPool connectionpool
++ Order createOrder(Cupcake cupcake, int userId, ConnectionPool connectionPool) throws DatabaseException
++ Order getOrderByOrderId(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ List<Order> getOrderByUserId(int userId, ConnectionPool connectionPool) throws DatabaseException
++ List<Cupcake> getCupcakesForOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ void deleteOrder(int orderId, ConnectionPool connectionPool) throws DatabaseException
++ void updateOrderPaid(int orderId, boolean paid, ConnectionPool connectionPool) throws DatabaseException
++ void insertCupcakeForOrder(int orderId, Cupcake cupcake, ConnectionPool connectionPool) throws DatabaseException
 }
 
 class ConnectionPool{
@@ -145,7 +173,8 @@ User *-- Order
 Order <|-- ShoppingBasket
 Order *-- Cupcake
 ShoppingBasket *-- Cupcake
-Cupcake *-- CupcakeTopping
-Cupcake *-- CupcakeBase
+Cupcake *-- CupcakePart
+CupcakePart <|-- CupcakeTopping
+CupcakePart <|-- CupcakeBase
 
 @enduml

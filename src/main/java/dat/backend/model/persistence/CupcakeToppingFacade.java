@@ -18,8 +18,8 @@ import java.util.List;
             return CupcakeToppingMapper.getOneTopping(toppingId, connectionPool);
         }
 
-        public static void addToppingflavor(String flavor, float price, ConnectionPool connectionPool)throws DatabaseException {
-            CupcakeToppingMapper.addToppingFlavor(flavor, price, connectionPool);
+        public static void addTopping(String flavor, float price, ConnectionPool connectionPool)throws DatabaseException {
+            CupcakeToppingMapper.addTopping(flavor, price, connectionPool);
         }
 
         public static void editTopping (int cupcaketoppingId, String name, float price, ConnectionPool connectionPool) throws DatabaseException{
