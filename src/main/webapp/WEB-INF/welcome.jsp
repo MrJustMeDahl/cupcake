@@ -13,7 +13,7 @@
 
     <jsp:body>
 
-        <h2>Ordreside</h2>
+        <h2>Menu</h2>
         <c:if test="${sessionScope.user!= null}">
             <p> Welcome "${sessionScope.user.name}"</p>
         </c:if>
