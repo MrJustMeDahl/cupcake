@@ -6,7 +6,6 @@
 
 <t:pagetemplate>
     <jsp:attribute name="header">
-         Welcome to the logged in area
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -14,7 +13,7 @@
 
     <jsp:body>
 
-        <h2>Ordersite</h2>
+        <h2>Ordreside</h2>
         <c:if test="${sessionScope.user!= null}">
             <p> Welcome "${sessionScope.user.name}"</p>
         </c:if>
@@ -25,8 +24,8 @@
             <tr>
                 <th>Base</th>
                 <th>Topping</th>
-                <th>number</th>
-                <th>Action</th>
+                <th>Antal</th>
+                <th>Tilføj</th>
             </tr>
             </thead>
 
@@ -66,9 +65,9 @@
                         ********************************************--%>
                     <td>
                         <button
-                                formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Add
+                                formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Tilføj
                         </button> <br/>
-                        <a href="indkøbskurv">Shoppingbasket</a>
+                        <a href="indkøbskurv">Indkøbskurv</a>
 
                     </td>
                 </form>
