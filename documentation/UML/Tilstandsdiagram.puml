@@ -1,0 +1,177 @@
+@startuml
+
+scale 350 width
+[*] --> index
+index --> login : User = null
+login --> register : Create a new User
+register --> login : New User created in DB
+login --> welcome : User = User
+welcome --> shoppingcart : Add selected cupcake and quantity to shoppingcart
+login --> admin : User = Admin
+shoppingcart --> userorders : Accept current shoppingcart (paid = true or false)
+welcome --> Logout.servlet
+shoppingcart --> Logout.servlet
+userorders --> Logout.servlet
+admin --> Logout.servlet
+Logout.servlet --> login: return to loginscreen
+
+login --> error : if forward or response failed
+register --> error : if forward failed
+welcome --> error : if retrieval of cupcakes failed
+shoppingcart --> error : if retrieval of order failed
+admin --> error : if connection to DB failed
+
+
+
+
+
+state login{
+login --> Login.Servlet
+
+ state Login.Servlet {
+ Login.Servlet --> UserFacade
+ UserFacade --> UserMapper : forward input request
+ UserMapper --> ConnectionPool : Request DB cupcake.user
+ ConnectionPool --> UserMapper : Respond DB cupcake.user
+ UserMapper --> Login.Servlet : forward respons
+
+  state UserFacade{
+  }
+
+  state UserMapper{
+
+  }
+ }
+}
+
+state register{
+
+ state Register.servlet{
+
+
+ }
+}
+
+state welcome{
+
+welcome --> Welcome.servlet
+
+ state Welcome.servlet{
+
+ Welcome.servlet --> CupcakeBaseFacade : intialize CupcakeBase
+ CupcakeBaseFacade --> CupcakeBaseMapper : forward request
+ CupcakeBaseMapper --> ConnectionPool : request CupcakeBase from DB
+ ConnectionPool --> CupcakeBaseMapper : respons CupcakeBase from DB
+CupcakeBaseMapper --> CupcakeBaseFacade : forward respons
+CupcakeBaseFacade --> Welcome.servlet : set value for drop menu
+
+Welcome.servlet --> CupcakeToppingFacade
+CupcakeToppingFacade --> CupcakeToppingMapper
+CupcakeToppingMapper --> ConnectionPool
+ConnectionPool --> CupcakeToppingMapper
+CupcakeToppingMapper --> CupcakeToppingFacade
+CupcakeToppingFacade --> Welcome.servlet
+welcome --> AddCupcakeToOrder.servlet : put inputs in shoppingcart
+AddCupcakeToOrder.servlet --> welcome : redirect back to the welcome page
+
+  state CupcakeBaseFacade{
+  }
+
+  state CupcakeBaseMapper{
+  }
+
+  state CupcakeToppingFacade{
+  }
+
+  state CupcakeToppingMapper{
+  }
+
+ }
+ state AddCupcakeToOrder.servlet{
+
+ }
+
+}
+
+state shoppingcart{
+shoppingcart --> Indkøbskurv.servlet
+
+ state Indkøbskurv.servlet{
+ Indkøbskurv.servlet --> OrderFacade : check or existing orders
+ OrderFacade --> OrderMapper
+ OrderMapper --> ConnectionPool : request order from DB
+ ConnectionPool --> OrderMapper : respons order from DB
+ OrderMapper --> OrderFacade
+ OrderFacade --> Indkøbskurv.servlet : return existing order or create new
+
+}
+  state OrderFacade{
+
+  }
+
+  state OrderMapper{
+
+  }
+
+
+
+ state OrderAndPayment.servlet{
+ OrderAndPayment.servlet --> OrderFacade : send a request for either order or pay and order
+ OrderFacade --> OrderMapper
+ OrderMapper --> ConnectionPool : request change in DB
+ ConnectionPool --> OrderMapper : respons change in DB
+ OrderMapper --> OrderFacade
+ OrderFacade --> OrderAndPayment.servlet : Respond the change from DB
+
+ }
+
+ state RemoveCupcakeFromOrder.servlet{
+ RemoveCupcakeFromOrder.servlet --> OrderFacade : Remove Cupcake from order based on cupcake id
+ OrderFacade --> OrderMapper
+ OrderMapper --> ConnectionPool : Request removal in DB
+ ConnectionPool --> OrderMapper : Respond with removal from DB
+ OrderMapper --> OrderFacade
+ OrderFacade --> RemoveCupcakeFromOrder.servlet : Chosen cupcake is removed
+
+
+ }
+
+ }
+
+state admin{
+admin --> Admin.servlet
+
+ state Admin.servlet{
+ Admin.servlet --> UserFacade : Request all users
+ UserFacade --> Admin.servlet : Return all users
+ Admin.servlet --> OrderFacade: Request all orders
+ OrderFacade --> Admin.servlet: Return all orders
+ }
+
+ state AdminUpdatePaid.servlet{
+ AdminUpdatePaid.servlet --> OrderFacade : Request to change unpaid order to paid
+ OrderFacade --> Admin.servlet : Respond with paid order
+ }
+
+ state GiveUserMoney.servlet{
+ GiveUserMoney.servlet --> UserFacade : request to add money to user
+UserFacade --> Admin.servlet : Respond with updated balance
+ }
+
+ state DeleteOrder.servlet{
+
+ }
+
+}
+
+state error {
+
+}
+
+state Logout.servlet{
+
+}
+
+state ConnectionPool{
+}
+@enduml
