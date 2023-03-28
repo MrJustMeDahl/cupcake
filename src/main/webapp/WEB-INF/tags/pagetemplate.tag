@@ -48,6 +48,7 @@
                                 </c:if>
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/welcome">Menu</a>
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/shoppingbasket">Indkøbskurv</a>
+                                <a class="nav-item nav-link" href="${pageContext.request.contextPath}/allorders">Ordrer</a>
                             </c:if>
 
 
