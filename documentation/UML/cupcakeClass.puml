@@ -75,11 +75,6 @@ static class PaymentMapper{
 <<static>>
 }
 
-static class PaymentFacade{
-<<static>>
-
-}
-
 class UserMapper{
 <<static>>
 + User login(String email, String password, ConnectionPool connectionPool) throws DatabaseException
