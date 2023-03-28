@@ -53,6 +53,7 @@ public class OrderAndPayment extends HttpServlet
             if(user.getBalance()>= order.getTotalPrice()) {
 
                 UserFacade.updateBalance(order.getTotalPrice()*-1, user.getUserId(), connectionPool);
+                System.out.println(user.getUserId()+ order.getTotalPrice());
                 OrderFacade.updateOrderOrdered(Integer.parseInt(request.getParameter("OrderId")), true, connectionPool);
                 OrderFacade.updateOrderPaid(Integer.parseInt(request.getParameter("OrderId")), true, connectionPool);
 
