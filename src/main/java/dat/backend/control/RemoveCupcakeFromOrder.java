@@ -30,12 +30,13 @@ public class RemoveCupcakeFromOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int cupcakeID = Integer.parseInt(req.getParameter("cupcakeid"));
-        try {
-            CupcakeBaseFacade.deleteBase(cupcakeID, connectionPool);
-        }catch (DatabaseException e){
-            req.setAttribute("errormessage", e);
-            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        List<Cupcake> basket = (List<Cupcake>) req.getSession().getAttribute("basket");
+
+        if (basket != null) {
+            Cupcake cupcakeToRemove = CupcakeBaseFacade.findCupcakeById(cupcakeID, connectionPool);
+            basket.remove(cupcakeToRemove);
         }
 
+        resp.sendRedirect("basket.jsp");
     }
 }
