@@ -6,12 +6,25 @@ public class Cupcake {
     private CupcakeBase base;
     private float fullPrice;
 
+
+
+    private int cupcakeId;
     public Cupcake(CupcakeTopping topping, CupcakeBase base){
         this.topping = topping;
         this.base = base;
         this.fullPrice = calculateFullPrice();
+
     }
 
+    public Cupcake(CupcakeTopping topping, CupcakeBase base, int cupcakeId){
+        this.topping = topping;
+        this.base = base;
+        this.fullPrice = calculateFullPrice();
+        this.cupcakeId = cupcakeId;
+    }
+    public int getCupcakeId() {
+        return cupcakeId;
+    }
     public CupcakeTopping getTopping() {
         return topping;
     }

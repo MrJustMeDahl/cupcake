@@ -38,4 +38,8 @@ public class OrderFacade {
     public static void updateTotalBalanceForOrder(int activeOrderId, ConnectionPool connectionPool) throws DatabaseException{
         OrderMapper.updateTotalBalanceForOrder(activeOrderId, connectionPool);
     }
+
+    public static void removeCupcakeFromOrder(int cupcakeID, ConnectionPool connectionPool)throws DatabaseException {
+        OrderMapper.removeCupcakeFromOrder(cupcakeID, connectionPool);
+    }
 }

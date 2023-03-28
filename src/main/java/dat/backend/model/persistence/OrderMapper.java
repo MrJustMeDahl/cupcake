@@ -108,7 +108,9 @@ class OrderMapper {
             while(rs.next()){
                 CupcakeBase cupcakeBase = new CupcakeBase(rs.getString("baseflavor"), rs.getFloat("basePrice"),rs.getInt("baseId"));
                 CupcakeTopping cupcakeTop = new CupcakeTopping(rs.getString("toppingflavor"), rs.getFloat("toppingprice"), rs.getInt("toppingId"));
-                cupcakes.add(new Cupcake(cupcakeTop, cupcakeBase));
+                int cupcakeId = rs.getInt("cupcakeId");
+                cupcakes.add(new Cupcake(cupcakeTop, cupcakeBase, cupcakeId));
+
             }
         } catch(SQLException e){
             throw new DatabaseException("Failed to get cupcakes on order with order id: " + orderId);
@@ -195,5 +197,17 @@ class OrderMapper {
             throw new DatabaseException("Failed to update price for order with id: " + activeOrderId);
         }
     }
+
+    public static void removeCupcakeFromOrder(int cupcakeID, ConnectionPool connectionPool)throws DatabaseException {
+        String sqlCupcake = "DELETE FROM cupcake.cupcake WHERE cupcakeId = ?";
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sqlCupcake)){
+                ps.setInt(1, cupcakeID);
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to delete cupcake in database.");
+        }
+}
 }
 
