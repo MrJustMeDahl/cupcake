@@ -32,14 +32,6 @@ public class User
         this.balance = 0;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setAllOrders(List<Order> allOrders) {
-        this.allOrders = allOrders;
-    }
-
     public String getName(){
         return name;
     }
@@ -61,11 +53,6 @@ public class User
         return email;
     }
 
-    public void setEmail(String username)
-    {
-        this.email = username;
-    }
-
     public String getPassword()
     {
         return password;
@@ -79,11 +66,6 @@ public class User
     public String getRole()
     {
         return role;
-    }
-
-    public void setRole(String role)
-    {
-        this.role = role;
     }
 
     @Override
