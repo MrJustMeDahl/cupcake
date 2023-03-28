@@ -180,5 +180,20 @@ class OrderMapper {
             throw new DatabaseException("Failed to update paid in database");
         }
     }
+
+    public static void updateTotalBalanceForOrder(int activeOrderId, ConnectionPool connectionPool) throws DatabaseException{
+        String sql = "UPDATE cupcake.order SET order.price = ? WHERE orderId = ?";
+        Order order = OrderMapper.getOrderByOrderId(activeOrderId, connectionPool);
+        float newPrice = order.getTotalPrice();
+        try(Connection connection = connectionPool.getConnection()){
+            try(PreparedStatement ps = connection.prepareStatement(sql)){
+                ps.setFloat(1, newPrice);
+                ps.setInt(2, activeOrderId);
+                ps.execute();
+            }
+        } catch(SQLException e){
+            throw new DatabaseException("Failed to update price for order with id: " + activeOrderId);
+        }
+    }
 }
 

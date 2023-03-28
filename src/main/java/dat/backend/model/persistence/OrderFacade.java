@@ -35,4 +35,7 @@ public class OrderFacade {
         OrderMapper.insertCupcakeForOrder(orderId, cupcake, connectionpool);
     }
 
+    public static void updateTotalBalanceForOrder(int activeOrderId, ConnectionPool connectionPool) throws DatabaseException{
+        OrderMapper.updateTotalBalanceForOrder(activeOrderId, connectionPool);
+    }
 }
