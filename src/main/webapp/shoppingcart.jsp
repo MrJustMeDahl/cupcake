@@ -27,10 +27,10 @@
             <thead>
             <th>Cupcakebund</th>
             <th>Cupcaketop</th>
-            <th>Samlet pris: ${sessionScope.order.totalPrice} kr</th>
+            <th>Samlet pris: ${requestScope.order.totalPrice} kr</th>
             </thead>
 
-                    <c:forEach var="cupcake" items="${order.cupcakes}">
+                    <c:forEach var="cupcake" items="${requestScope.order.cupcakes}">
                 <tr>
 
                         <td> Cupcakebund: ${cupcake.base}</td>
@@ -41,13 +41,16 @@
                         <%-- <td>orderId: ${order.orderID}</td> --%>
                         <%-- <td>bestilt: ${order.ordered}</td> --%>
 
-                    
-
                      </tr>
                          </c:forEach>
 
-
              </table>
+        <form action="orderandpayment" method="get">
+            <button class="btn btn-outline-primary" type="submit" value="${requestScope.order.orderID}" name="OrderId">Bestil</button>
+        </form>
+        <form action="orderandpayment" method="post">
+            <button class="btn btn-outline-primary" type="submit" value="${requestScope.order.orderID}" name="OrderId">Betal</button>
+        </form>
 
          </jsp:body>
 

@@ -28,6 +28,9 @@ public class OrderFacade {
     public static void updateOrderPaid(int orderID, boolean paid, ConnectionPool connectionPool) throws DatabaseException{
         OrderMapper.updateOrderPaid(orderID, paid, connectionPool);
     }
+    public static void updateOrderOrdered(int orderID, boolean ordered, ConnectionPool connectionPool) throws DatabaseException{
+        OrderMapper.updateOrderOrdered(orderID, ordered, connectionPool);
+    }
     public  static void insertCupcakeForOrder(int orderId, Cupcake cupcake, ConnectionPool connectionpool) throws DatabaseException{
         OrderMapper.insertCupcakeForOrder(orderId, cupcake, connectionpool);
     }
