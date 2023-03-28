@@ -57,6 +57,7 @@ public class AddCupcakeToOrder extends HttpServlet {
             for (int i = 0; i < quantity; i++) {
                 try {
                     OrderFacade.insertCupcakeForOrder(activeOrderId, cupcake, connectionPool);
+                    OrderFacade.updateTotalBalanceForOrder(activeOrderId, connectionPool);
                 } catch (DatabaseException e) {
                     request.setAttribute("errormessage", e);
                     request.getRequestDispatcher("error.jsp").forward(request, response);

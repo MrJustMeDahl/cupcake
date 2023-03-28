@@ -28,6 +28,7 @@
             <th>Cupcakebund</th>
             <th>Cupcaketop</th>
             <th>Samlet pris: ${requestScope.order.totalPrice} kr</th>
+            <th></th>
             </thead>
 
                     <c:forEach var="cupcake" items="${requestScope.order.cupcakes}">
@@ -36,7 +37,10 @@
                         <td> Cupcakebund: ${cupcake.base}</td>
                         <td> Cupcaketop: ${cupcake.topping}</td>
                         <td>pris: ${cupcake.fullPrice} kr</td>
-
+                    <td>
+                    <form action="removecupcake" method="post">
+                        <button class="btn btn-outline-danger" type="submit" value="${cupcake.cupcakeId}" name="cupcakeId">fjern</button>
+                    </form></td>
                         <%--<td>betalt: ${order.paid}</td> --%>
                         <%-- <td>orderId: ${order.orderID}</td> --%>
                         <%-- <td>bestilt: ${order.ordered}</td> --%>
