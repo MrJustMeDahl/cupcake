@@ -13,7 +13,7 @@
 
     <jsp:body>
 
-        <h2>Ordreside</h2>
+        <h2>Menu</h2>
         <c:if test="${sessionScope.user!= null}">
             <p> Welcome "${sessionScope.user.name}"</p>
         </c:if>
@@ -58,7 +58,7 @@
                         ********************************************--%>
                     <td>
                         <input id="number" classs="d-inline form-control w-10" type="number" name="number"
-                               placeholder="quantity" min="1"/>
+                               placeholder="quantity" value="0" min="1"/>
                     </td>
                         <%--********************************************
                     press the button to add to basket or link to go to checkout
@@ -67,7 +67,7 @@
                         <button
                                 formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Tilføj
                         </button> <br/>
-                        <a href="indkøbskurv">Indkøbskurv</a>
+                        <a href="shoppingbasket">Indkøbskurv</a>
 
                     </td>
                 </form>
