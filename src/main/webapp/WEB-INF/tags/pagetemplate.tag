@@ -43,6 +43,9 @@
                         <div class="navbar-nav">
 
                             <c:if test="${sessionScope.user != null }">
+                                <c:if test="${sessionScope.user.role.equals('admin')}">
+                                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/admin">Administration</a>
+                                </c:if>
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/welcome">Menu</a>
                                 <a class="nav-item nav-link" href="${pageContext.request.contextPath}/shoppingbasket">Indkøbskurv</a>
                             </c:if>
