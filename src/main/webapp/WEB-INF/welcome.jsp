@@ -67,7 +67,7 @@
                         <button
                                 formaction="addcupcaketoorder" class="btn btn-outline-dark" name="cupcakeId">Tilføj
                         </button> <br/>
-                        <a href="indkøbskurv">Indkøbskurv</a>
+                        <a href="shoppingbasket">Indkøbskurv</a>
 
                     </td>
                 </form>
