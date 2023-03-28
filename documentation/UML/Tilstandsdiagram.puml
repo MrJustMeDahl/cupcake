@@ -8,10 +8,10 @@ register --> login : New User created in DB
 login --> welcome : User = User
 welcome --> shoppingcart : Add selected cupcake and quantity to shoppingcart
 login --> admin : User = Admin
-shoppingcart --> userorders : Accept current shoppingcart (paid = true or false)
+shoppingcart --> orders : Accept current shoppingcart (paid = true or false)
 welcome --> Logout.servlet
 shoppingcart --> Logout.servlet
-userorders --> Logout.servlet
+orders --> Logout.servlet
 admin --> Logout.servlet
 Logout.servlet --> login: return to loginscreen
 
