@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "RemoveCupcakeFromOrder", value = "/removecupcake")
+@WebServlet(name = "RemoveCupcakeFromOrder", value = {"/removecupcake"})
 public class RemoveCupcakeFromOrder extends HttpServlet {
 
     private ConnectionPool connectionPool;
