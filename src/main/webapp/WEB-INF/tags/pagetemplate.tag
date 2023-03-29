@@ -84,7 +84,7 @@
             3770 Allinge
         </div>
         <div class="col">
-            <jsp:invoke fragment="footer"/>
+            ${sessionScope.user.email}
             <br/>
             <p><a href="aboutus.jsp">Om os</a></p>
         </div>
