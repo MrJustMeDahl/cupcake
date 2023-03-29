@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:Admin: as Admin
+note left of Admin : Bakery administrator.
+
+note left of User : Customer
+User -> (Register)
+User --> (Login)
+(Register) --> (Login)
+
+Admin -> (Login)
+
+(Login) -> (Menu)
+note right of (Menu) : Ligge cupcakes i kurven
+
+(Menu) --> (Indkøbskurv)
+note "Her kan ordren rettes, bestilles og betales" as note2
+(Indkøbskurv) .. note2
+(Menu) --> (Ordrer)
+note "Her kan ses alle afgivne ordrer" as note3
+(Ordrer) .. note3
+
+note "Hvis admin" as note1
+
+(Login) .. note1
+note1 .. (Administration)
+note left of (Administration) : Admin kan se alle ordre, ændre betalingsstatus, give kunder kredit, mm.
+
+
+@enduml
