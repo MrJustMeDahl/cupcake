@@ -21,7 +21,9 @@ public class AllOrders extends HttpServlet {
                 request.setAttribute("chosenOrderCupcakes", o.getCupcakes());
             }
         }
-        request.setAttribute("lastOrder", allOrders.get(allOrders.size()-1));
+        if(allOrders.size() > 0) {
+            request.setAttribute("lastOrder", allOrders.get(allOrders.size() - 1));
+        }
         request.setAttribute("chosenOrder", request.getParameter("orderid"));
         request.getRequestDispatcher("WEB-INF/orders.jsp").forward(request, response);
     }
