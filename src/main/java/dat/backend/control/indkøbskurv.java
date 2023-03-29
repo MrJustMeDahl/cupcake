@@ -45,6 +45,12 @@ public class indkøbskurv extends HttpServlet
 
                 }
             }
+            try{
+                session.setAttribute("user", UserFacade.getUserByID(user.getUserId(),connectionPool));
+            }catch (DatabaseException e){
+                request.setAttribute("errormessage", e);
+                request.getRequestDispatcher("error.jsp").forward(request,response);
+            }
 
             request.getRequestDispatcher("shoppingcart.jsp").forward(request, response);
 

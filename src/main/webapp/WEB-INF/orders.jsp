@@ -15,6 +15,8 @@
         <div class="text-center">
             <div class="card mt-2">
                 <div class="card-body">
+                    <c:choose>
+                    <c:when test="${requestScope.allOrders.size() > 0}">
                     <h1>Sidste bestilling:</h1>
                     <table class="table table-striped">
                         <thead>
@@ -110,6 +112,11 @@
                             </c:if>
                         </c:forEach>
                     </table>
+                    </c:when>
+                    <c:otherwise>
+                        <h1>Du har ingen ordre for øjeblikket. Se vores menu her: <a href="welcome">Menu</a></h1>
+                    </c:otherwise>
+    </c:choose>
                 </div>
             </div>
         </div>

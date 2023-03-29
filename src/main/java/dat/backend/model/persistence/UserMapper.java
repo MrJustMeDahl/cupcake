@@ -46,20 +46,17 @@ public class UserMapper {
         Logger.getLogger("web").log(Level.INFO, "");
         User user;
         String sql = "INSERT INTO user (name, email, password, balance, role) values (?,?,?,?,?)";
-        System.out.println("VI ER EFTER STATEMENT 333333333");
 
         try (Connection connection = connectionPool.getConnection())
         {
 
             try (PreparedStatement ps = connection.prepareStatement(sql))
             {
-                System.out.println("prepared statement1: " + ps);
                 ps.setString(1, name);
                 ps.setNString(2, email);
                 ps.setString(3, password);
                 ps.setFloat(4,0);
                 ps.setString(5, "user");
-                System.out.println("prepared statement1: " + ps);
                 int rowsAffected = ps.executeUpdate();
 
                 if (rowsAffected > 0)

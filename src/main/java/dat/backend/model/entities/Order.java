@@ -51,15 +51,8 @@ public class Order {
         return ordered;
     }
 
-    public void setOrdered(boolean newOrdered){
-        this.ordered = newOrdered;
-    }
-
     public boolean getPaid() {
         return paid;
     }
 
-    public void setPaid(boolean newPaid){
-        this.paid = newPaid;
-    }
 }
